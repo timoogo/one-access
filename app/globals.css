@@ -1,26 +1,109 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-heading: var(--font-heading);
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-3xl: 0;
+  --radius-4xl: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root,
+.dark {
+  color-scheme: dark;
+  --background: #090b0a;
+  --foreground: #f4f1e8;
+  --card: #111412;
+  --card-foreground: #f4f1e8;
+  --popover: #151815;
+  --popover-foreground: #f4f1e8;
+  --primary: #ff4b0b;
+  --primary-foreground: #090b0a;
+  --secondary: #202420;
+  --secondary-foreground: #f4f1e8;
+  --muted: #191c19;
+  --muted-foreground: #abb0a9;
+  --accent: #ff4b0b;
+  --accent-foreground: #090b0a;
+  --destructive: #ff6b56;
+  --border: #3b403b;
+  --input: #525852;
+  --ring: #ff4b0b;
+  --chart-1: #ff4b0b;
+  --chart-2: #f4f1e8;
+  --chart-3: #abb0a9;
+  --chart-4: #686e68;
+  --chart-5: #303530;
+  --radius: 0;
+  --sidebar: #0d0f0e;
+  --sidebar-foreground: #f4f1e8;
+  --sidebar-primary: #ff4b0b;
+  --sidebar-primary-foreground: #090b0a;
+  --sidebar-accent: #202420;
+  --sidebar-accent-foreground: #f4f1e8;
+  --sidebar-border: #3b403b;
+  --sidebar-ring: #ff4b0b;
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { @apply bg-background font-sans; scroll-behavior: smooth; }
+  body {
+    @apply bg-background text-foreground;
+    background-image: linear-gradient(to right, color-mix(in srgb, var(--border) 22%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--border) 16%, transparent) 1px, transparent 1px);
+    background-size: 5rem 5rem;
   }
+  ::selection { background: var(--primary); color: var(--primary-foreground); }
+  :focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+  button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
+  h1, h2, h3 { font-family: var(--font-heading), sans-serif; font-weight: 700; letter-spacing: -0.035em; text-transform: uppercase; }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .oa-label { font-family: var(--font-mono), monospace; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.14em; line-height: 1.35; text-transform: uppercase; }
+  .oa-stripes { background: repeating-linear-gradient(45deg, var(--primary) 0 0.75rem, var(--background) 0.75rem 1.5rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
 }
