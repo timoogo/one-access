@@ -772,7 +772,7 @@
   padding: 0 7% 70px;
 }
 .supportPage > .sectionLabel {
-  margin-bottom: 55px;
+  margin-bottom: 24px;
 }
 .supportPage h1 {
   font-size: clamp(2.5rem, 6vw, 5.5rem);
@@ -784,8 +784,36 @@
   color: var(--muted-foreground);
   margin-top: 20px;
 }
-.supportPage > .cta {
-  margin-top: 30px;
+.supportCommitment {
+  max-width: 620px;
+  margin-top: 28px;
+  padding-left: 18px;
+  border-left: 2px solid var(--primary);
+}
+.supportCommitment h2 {
+  font-size: 1.1rem;
+  line-height: 1.3;
+}
+.supportCommitment ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin-block: 14px;
+}
+.supportCommitment li {
+  margin-top: 8px;
+  line-height: 1.5;
+}
+.supportCommitment p,
+.supportActions p {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+.supportActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 28px;
 }
 @media (min-width: 1440px) {
   .hero h1 {
@@ -1179,6 +1207,12 @@
     padding-inline: 20px;
   }
   .supportPage > .sectionLabel {
-    margin-bottom: 35px;
+    margin-bottom: 20px;
+  }
+  .supportCommitment h2 {
+    font-size: 1.1rem;
+  }
+  .supportActions > .cta {
+    width: 100%;
   }
 }
