@@ -2,7 +2,54 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { audits, comparison, demoRoutes, environment, pathNodes, paths, places, preferredPath, profiles } from "./scenario";
 import { getScenarioState } from "./progression";
-import { correspondencePoints, formatDuration } from "./presentation";
+import { checkpointRail, correspondencePoints, formatDuration, getComparisonLayout, routePoints } from "./presentation";
+
+test("layout unfolds only in its presentation range and reverses deterministically", () => {
+  assert.equal(getComparisonLayout(0).expansion, 0);
+  assert.equal(getComparisonLayout(0.15).expansion, 0);
+  const middle = getComparisonLayout(0.35);
+  assert.ok(middle.expansion > 0 && middle.expansion < 1);
+  assert.ok(middle.editorialOpacity > 0 && middle.editorialOpacity < 1);
+  assert.ok(middle.railReveal > 0 && middle.railReveal < 1);
+  assert.deepEqual(getComparisonLayout(0.5), getComparisonLayout(1));
+  assert.equal(getComparisonLayout(1).expansion, 1);
+  assert.equal(getComparisonLayout(1).railReveal, 1);
+  assert.equal(getComparisonLayout(1).editorialOpacity, 0);
+  assert.deepEqual(getComparisonLayout(0.35), middle);
+});
+
+test("rail includes only shared physical nodes and activates from the existing scenario state", () => {
+  const initial = checkpointRail(getScenarioState(0));
+  assert.deepEqual(initial.map((point) => point.nodeId), pathNodes(paths[0]));
+  assert.deepEqual(initial.map((point) => point.active), [true, false, false, false]);
+  assert.ok(initial.every((point) => point.comparison === undefined));
+  const before = checkpointRail(getScenarioState(0.41999))[1];
+  const arrival = checkpointRail(getScenarioState(0.42))[1];
+  assert.equal(before.active, false);
+  assert.equal(before.comparison, undefined);
+  assert.equal(arrival.nodeId, places.landing.id);
+  assert.equal(arrival.label, places.landing.label);
+  assert.equal(arrival.active, true);
+  assert.deepEqual(arrival.comparison, checkpointRail(getScenarioState(1))[1].comparison);
+  assert.deepEqual(checkpointRail(getScenarioState(0)), initial);
+});
+
+test("wider plots spread every route's nodes without changing identity, labels or vertical geometry", () => {
+  for (const route of [0, 1] as const) {
+    const compact = routePoints(route, 1, 500);
+    const expanded = routePoints(route, 1, 1000);
+    compact.forEach((point, index) => {
+      assert.equal(expanded[index].id, point.id);
+      assert.equal(expanded[index].label, point.label);
+      assert.equal(expanded[index].y, point.y);
+      assert.equal(expanded[index].x, point.x * 2);
+      if (index) assert.ok(expanded[index].x - expanded[index - 1].x > point.x - compact[index - 1].x);
+    });
+  }
+  const adapted = routePoints(1, 1, 244);
+  assert.equal(adapted.find((point) => point.id === places.entrance.id)!.shortLabel, "A");
+  assert.equal(adapted.find((point) => point.id === places.lift.id)!.shortLabel, "Asc.");
+});
 
 test("duration presentation rounds seconds before formatting minutes and seconds", () => {
   const examples: readonly [number, string][] = [

@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { demoRoutes, pathNodes, preferredPath, places } from "@/lib/homepage-scenario/scenario";
 import { getScenarioState } from "@/lib/homepage-scenario/progression";
-import { correspondencePoints, diagramWidth, formatDuration, routePoints, segmentDrawing } from "@/lib/homepage-scenario/presentation";
+import { checkpointRail, correspondencePoints, diagramWidth, formatDuration, routePoints, segmentDrawing } from "@/lib/homepage-scenario/presentation";
 import { useRouteProgress } from "./use-route-progress";
 import styles from "./public-site.module.css";
 
@@ -27,7 +27,7 @@ function LiveMeasurementPair({ reference, compared }: { reference: string; compa
   );
 }
 
-export function RouteComparison() {
+export function RouteComparison({ editorial }: { editorial: ReactNode }) {
   const { rootRef, progress } = useRouteProgress();
   const state = getScenarioState(progress);
   const panelsRef = useRef<HTMLDivElement>(null);
@@ -51,7 +51,35 @@ export function RouteComparison() {
   }, []);
 
   return (
-    <div ref={rootRef} className={styles.comparison} data-motion-route data-scenario-progress={state.progress.toFixed(3)}>
+    <div ref={rootRef} className={styles.exampleStage} data-motion-route data-scenario-progress={state.progress.toFixed(3)}>
+      <div className={styles.exampleGrid}>
+        <div className={styles.editorialSlot}>
+          <div className={styles.exampleEditorial}>{editorial}</div>
+        </div>
+        <div className={styles.comparison}>
+          <div className={styles.comparisonInstrument}>
+            <aside className={styles.checkpointRail} aria-label="Historique des points communs">
+              <p className="oa-label">Points communs</p>
+              <ol>
+                {checkpointRail(state).map((checkpoint) => (
+                  <li key={checkpoint.nodeId} data-checkpoint-node={checkpoint.nodeId} data-active={checkpoint.active}>
+                    <span className={styles.checkpointLabel}>{checkpoint.label}</span>
+                    <span className={styles.routeTextAlternative}>{checkpoint.active ? " — atteint par les deux parcours" : " — comparaison à venir"}</span>
+                    {checkpoint.comparison && (
+                      <div data-checkpoint-comparison={checkpoint.nodeId}>
+                        <span className={styles.checkpointRatio}>× {ratio(checkpoint.comparison.timeRatio)} <span className={styles.checkpointDimension}>T</span></span>
+                        <span className={styles.checkpointRatio}>× {ratio(checkpoint.comparison.distanceRatio)} <span className={styles.checkpointDimension}>D</span></span>
+                        <span className={styles.routeTextAlternative}>
+                          À l’arrivée : référence {formatDuration(checkpoint.comparison.reference.seconds)}, {number.format(checkpoint.comparison.reference.meters)} m ;
+                          accès adapté {formatDuration(checkpoint.comparison.compared.seconds)}, {number.format(checkpoint.comparison.compared.meters)} m.
+                        </span>
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </aside>
+            <div className={styles.comparisonBody}>
       <div ref={panelsRef} className={styles.routePanels}>
         {geometry && geometry.plots.length === 2 && (
           <svg className={styles.routeCorrespondences} viewBox={`0 0 ${geometry.width} ${geometry.height}`} aria-hidden="true" focusable="false">
@@ -70,7 +98,8 @@ export function RouteComparison() {
         {demoRoutes.map((route, index) => {
           const routeIndex = index as 0 | 1;
           const current = index === 0 ? state.reference : state.compared;
-          const points = routePoints(routeIndex, state.spatialReveal);
+          const plotWidth = geometry?.plots[index]?.width || diagramWidth;
+          const points = routePoints(routeIndex, state.spatialReveal, plotWidth);
           return (
             <article key={route.comparedPath.pathId} className={styles.route}>
               <div className={styles.routeHeading}>
@@ -78,20 +107,7 @@ export function RouteComparison() {
                 <h3>{route.title}</h3>
               </div>
               <div className={styles.routeDiagram}>
-                <div className={styles.checkpointSidebar}>
-                  {index === 0 && (
-                    <ul aria-label="Rapports historiques aux points communs">
-                      {state.checkpointComparisons.map((checkpoint) => (
-                        <li key={checkpoint.nodeId} data-checkpoint-comparison={checkpoint.nodeId}>
-                          <span className={styles.checkpointLabel}>{points.find((point) => point.id === checkpoint.nodeId)!.label}</span>
-                          <span className={styles.checkpointRatio}>× {ratio(checkpoint.timeRatio)} <span className={styles.checkpointDimension}>T</span></span>
-                          <span className={styles.checkpointRatio}>× {ratio(checkpoint.distanceRatio)} <span className={styles.checkpointDimension}>D</span></span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              <svg data-route-plot viewBox={`0 0 ${diagramWidth} 120`} preserveAspectRatio="none" className={styles.routePlot} aria-hidden="true" focusable="false">
+              <svg data-route-plot viewBox={`0 0 ${plotWidth} 120`} preserveAspectRatio="none" className={styles.routePlot} aria-hidden="true" focusable="false">
                 {points.slice(1).map((point, segment) => (
                   <g key={`${points[segment].id}/${point.id}`}>
                     <path className={styles.routeTrack} d={segmentDrawing(points[segment], point)} />
@@ -99,27 +115,15 @@ export function RouteComparison() {
                       pathLength="1" strokeDasharray="1" strokeDashoffset={1 - Math.max(0, Math.min(1, current.cursor - segment))} />
                   </g>
                 ))}
-                {points.map((point, nodeIndex) => (
+                {points.map((point) => (
                   <g key={point.id} data-route-node={point.id} data-reached={current.reachedNodes.includes(point.id)}>
                     {current.reachedNodes.includes(point.id) && <rect x={point.x - 3} y={point.y - 3} width="6" height="6" className={styles.routeNode} />}
-                    <text x={point.x} y={point.y + 23} textAnchor={nodeIndex === 0 ? "start" : nodeIndex === points.length - 1 ? "end" : "middle"} className={styles.desktopNodeLabel}>{point.label}</text>
-                    <text x={point.x} y={point.y + 27} textAnchor={nodeIndex === 0 ? "start" : nodeIndex === points.length - 1 ? "end" : "middle"} className={styles.mobileNodeLabel}>{["A", "B"].includes(point.label[0]) || point.label.includes(" · ") ? point.label[0] : point.label === "Ascenseur" ? "Asc." : point.label === "Personnel" ? "Agent" : "Élév."}</text>
+                    <text x={point.x} y={point.labelY} textAnchor={point.labelAnchor} className={styles.desktopNodeLabel}>{point.label}</text>
+                    <text x={point.x} y={point.labelY + 4} textAnchor={point.labelAnchor} className={styles.mobileNodeLabel}>{point.shortLabel}</text>
                   </g>
                 ))}
               </svg>
               </div>
-              {index === 0 && (
-                <ul className={styles.routeTextAlternative} aria-label="Comparaisons aux points communs">
-                  {state.checkpointComparisons.map((checkpoint) => (
-                    <li key={checkpoint.nodeId}>
-                      {points.find((point) => point.id === checkpoint.nodeId)!.label} :
-                      référence {formatDuration(checkpoint.reference.seconds)}, {number.format(checkpoint.reference.meters)} m ;
-                      accès adapté {formatDuration(checkpoint.compared.seconds)}, {number.format(checkpoint.compared.meters)} m.
-                      Rapports à l’arrivée : × {ratio(checkpoint.timeRatio)} en temps, × {ratio(checkpoint.distanceRatio)} en distance.
-                    </li>
-                  ))}
-                </ul>
-              )}
               <ol className={styles.routeTextAlternative} aria-label={`Étapes — ${route.title}`}>
                 {pathNodes(preferredPath(route)).map((id) => <li key={id}>
                   {Object.values(places).find((place) => place.id === id)!.label}
@@ -160,6 +164,10 @@ export function RouteComparison() {
         Accès adapté, 12 minutes et 240 mètres avec attente et intervention obligatoire du personnel.
         Six fois plus de temps, trois fois plus de distance.
       </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

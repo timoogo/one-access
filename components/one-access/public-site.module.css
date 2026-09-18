@@ -140,21 +140,29 @@
 .homeMotion {
   display: contents;
 }
-.exampleGrid [data-motion-route] {
+.exampleStage {
+  /* Stable full-width pin; only its inner grid reallocates horizontal space. */
+  --comparison-expansion: 1;
+  --editorial-opacity: 0;
+  --editorial-offset: -12px;
+  --checkpoint-reveal: 1;
+  --editorial-share: 0.32;
   --oa-route-vertical-offset: 0px;
   --oa-route-grid-opacity: 0.35;
   --oa-route-header-space: 80px;
   --oa-route-max-width: 1120px;
   --oa-route-bleed-width: 32px;
   --oa-route-bleed-margin: -16px;
+  width: 100%;
+  min-width: 0;
+  container-type: inline-size;
+}
+.comparison {
   position: relative;
   isolation: isolate;
   box-sizing: border-box;
-  width: min(
-    var(--oa-route-max-width),
-    calc(100% + var(--oa-route-bleed-width))
-  );
-  margin-inline: var(--oa-route-bleed-margin);
+  width: 100%;
+  min-width: 0;
   min-height: 100svh;
   padding-top: var(--oa-route-header-space);
   display: flex;
@@ -162,7 +170,7 @@
   justify-content: center;
   translate: 0 var(--oa-route-vertical-offset);
 }
-.exampleGrid [data-motion-route]::before {
+.comparison::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -171,7 +179,7 @@
   background: var(--background);
   opacity: calc(1 - var(--oa-route-grid-opacity));
 }
-.exampleGrid [data-motion-route] > * {
+.comparison > * {
   position: relative;
   z-index: 1;
 }
@@ -768,8 +776,74 @@
 }
 .exampleGrid {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 28px;
+  grid-template-columns: minmax(0, calc((100% - 28px) * var(--editorial-share) * (1 - var(--comparison-expansion)))) minmax(0, 1fr);
+  gap: calc(28px * (1 - var(--comparison-expansion)));
+  align-items: start;
+}
+.editorialSlot {
+  min-width: 0;
+  overflow: clip;
+}
+.exampleEditorial {
+  width: calc((100cqw - 28px) * var(--editorial-share));
+  opacity: var(--editorial-opacity);
+  transform: translateX(var(--editorial-offset));
+}
+.comparisonInstrument {
+  display: grid;
+  grid-template-columns: calc(7.5rem * var(--checkpoint-reveal)) minmax(0, 1fr);
+  gap: calc(16px * var(--checkpoint-reveal));
+  align-items: start;
+}
+.comparisonBody {
+  min-width: 0;
+}
+.checkpointRail {
+  min-width: 0;
+  overflow: clip;
+  opacity: var(--checkpoint-reveal);
+  font: 0.6875rem/1.4 var(--font-mono), monospace;
+}
+.checkpointRail > p,
+.checkpointRail ol {
+  width: 7.5rem;
+}
+.checkpointRail > p {
+  margin-bottom: 18px;
+  color: var(--muted-foreground);
+  font-size: 0.6rem;
+}
+.checkpointRail li {
+  position: relative;
+  margin-left: 3px;
+  border-left: 1px solid var(--border);
+  padding: 0 0 22px 12px;
+  min-height: 5.5rem;
+}
+.checkpointRail li:last-child {
+  border-left-color: transparent;
+}
+.checkpointRail li::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: -3px;
+  width: 5px;
+  height: 5px;
+  background: var(--muted-foreground);
+}
+.checkpointRail li[data-active="true"]::before {
+  background: var(--primary);
+}
+.checkpointRail li[data-active="true"] .checkpointLabel {
+  color: var(--foreground);
+}
+.checkpointRail .checkpointRatio {
+  display: block;
+}
+.checkpointRail .checkpointLabel {
+  display: block;
+  margin-bottom: 5px;
 }
 .compactFrame {
   position: relative;
@@ -798,23 +872,7 @@
   opacity: 0.4;
 }
 .routeDiagram {
-  display: grid;
-  grid-template-columns: 6rem minmax(0, 1fr);
-  gap: 12px;
-  min-height: 9rem;
   margin-top: 12px;
-}
-.checkpointSidebar {
-  position: relative;
-  background: var(--background);
-  font: 0.625rem/1.35 var(--font-mono), monospace;
-}
-.checkpointSidebar ul {
-  display: grid;
-  gap: 6px;
-}
-.checkpointSidebar li > span {
-  display: block;
 }
 .checkpointLabel {
   color: var(--muted-foreground);
@@ -822,7 +880,7 @@
 .routePlot {
   display: block;
   width: 100%;
-  height: 100px;
+  height: 120px;
   overflow: visible;
 }
 .routePlot path {
@@ -841,7 +899,7 @@
 }
 .routePlot text {
   fill: var(--muted-foreground);
-  font: 16px var(--font-mono), monospace;
+  font: 12px var(--font-mono), monospace;
   paint-order: stroke;
   stroke: var(--background);
   stroke-width: 5px;
@@ -910,15 +968,7 @@
   }
   .routePlot .mobileNodeLabel {
     display: block;
-    font-size: 30px;
-  }
-  .routeDiagram {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 3rem 100px;
-    gap: 8px;
-  }
-  .checkpointSidebar ul {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    font-size: 11px;
   }
 }
 .route + .route {
@@ -1240,8 +1290,8 @@
     border-left: 0;
     padding-left: 0;
   }
-  .exampleGrid {
-    grid-template-columns: 1fr 1.8fr;
+  .exampleStage {
+    --editorial-share: 0.25;
   }
   .routeHeading {
     flex-wrap: wrap;
@@ -1381,7 +1431,7 @@
   .heroPhotograph::after {
     background: linear-gradient(180deg, var(--background), transparent 18%);
   }
-  .exampleGrid [data-motion-route] {
+  .exampleGrid .comparison {
     min-height: auto;
     padding-top: var(--oa-route-header-space);
     justify-content: flex-start;
@@ -1411,6 +1461,26 @@
   .exampleGrid {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+  .exampleEditorial {
+    width: 100%;
+    opacity: 1;
+    transform: none;
+  }
+  .comparisonInstrument {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+  .checkpointRail {
+    opacity: 1;
+  }
+  .checkpointRail > p,
+  .checkpointRail ol {
+    width: 100%;
+  }
+  .checkpointRail ol {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .situations {
     grid-template-columns: repeat(2, 1fr);
@@ -1593,5 +1663,20 @@
   }
   .supportActions > .cta {
     width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exampleGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  .exampleEditorial {
+    width: 100%;
+    opacity: 1;
+    transform: none;
+  }
+  .comparison {
+    min-height: auto;
   }
 }

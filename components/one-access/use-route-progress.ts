@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { scrollAnimationConfig } from "@/config/animations/scroll.config";
+import { getComparisonLayout } from "@/lib/homepage-scenario/presentation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,6 +24,11 @@ export function useRouteProgress() {
     const publish = (value: number) => {
       setProgress(value);
       section?.style.setProperty("--example-progress", String(value));
+      const layout = getComparisonLayout(value);
+      root.style.setProperty("--comparison-expansion", String(layout.expansion));
+      root.style.setProperty("--editorial-opacity", String(layout.editorialOpacity));
+      root.style.setProperty("--editorial-offset", `${layout.editorialOffset}px`);
+      root.style.setProperty("--checkpoint-reveal", String(layout.railReveal));
     };
 
     media.add({
@@ -49,6 +55,7 @@ export function useRouteProgress() {
       const rebuild = context.add("rebuildRoute", () => {
         animation?.revert();
         const position = { progress: 0 };
+        publish(0);
         // Never pin a panel taller than the viewport: its measurements must stay reachable.
         const fits = root.scrollHeight <= window.innerHeight;
         animation = gsap.to(position, {
@@ -99,6 +106,9 @@ export function useRouteProgress() {
       cancelAnimationFrame(frame);
       media.revert();
       section?.style.removeProperty("--example-progress");
+      for (const property of ["--comparison-expansion", "--editorial-opacity", "--editorial-offset", "--checkpoint-reveal"]) {
+        root.style.removeProperty(property);
+      }
     };
   }, []);
 

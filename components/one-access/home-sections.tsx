@@ -248,26 +248,25 @@ export function ExampleSection() {
       >
         Le parcours à l’épreuve du réel
       </TechnicalSectionLabel>
-      <div className={styles.exampleGrid}>
+      <RouteComparison editorial={
         <div>
           <h2 id="example-title">
             L’accès existe.
             <br />
             <span>À quel prix ?</span>
           </h2>
-          <p>
+          <p data-motion-copy>
             Rejoindre une salle depuis l’entrée d’un bâtiment. Un trajet direct
             pour les uns ; deux appareils de levage et l’aide du personnel pour
             les autres.
           </p>
-          <p>
+          <p data-motion-copy>
             « Accessible » ou « non accessible » ne suffit pas à décrire cette
             expérience.
           </p>
           <ArchitecturalFrame compact />
         </div>
-        <RouteComparison />
-      </div>
+      } />
     </section>
   );
 }
