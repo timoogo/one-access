@@ -111,7 +111,9 @@ export function PublicHeader() {
           href="/"
           aria-label="ONE:ACCESS — Accueil"
         >
-          ONE<span>:</span>ACCESS
+          <span className={styles.brandMark} data-one-access-logo-target>
+            ONE<span>:</span>ACCESS
+          </span>
         </Link>
         <nav aria-label="Navigation principale">
           <Link href="/#concept">Concept</Link>

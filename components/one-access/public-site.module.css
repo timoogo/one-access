@@ -23,6 +23,117 @@
   outline: 2px solid var(--ring);
   outline-offset: 5px;
 }
+.introLoader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  padding: 24px;
+  background: transparent;
+  color: var(--foreground);
+  pointer-events: none;
+}
+.introBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--background);
+  background-image: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--border) 22%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--border) 16%, transparent) 1px,
+      transparent 1px
+  );
+  background-size: 5rem 5rem;
+  pointer-events: none;
+}
+.introLoaderActive {
+  display: flex;
+}
+.introInstrument {
+  position: relative;
+  z-index: 1;
+  width: min(1180px, calc(100vw - 48px));
+  margin: 0 auto;
+}
+
+.introInstrument::before {
+  content: "";
+  position: absolute;
+  inset: -120px -160px;
+  z-index: -1;
+  pointer-events: none;
+
+  background: radial-gradient(
+    ellipse at center,
+    var(--background) 0%,
+    color-mix(in srgb, var(--background) 92%, transparent) 35%,
+    color-mix(in srgb, var(--background) 55%, transparent) 60%,
+    transparent 80%
+  );
+
+  filter: blur(20px);
+}
+
+.introLockup {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  justify-content: center;
+}
+.introWord {
+  color: var(--foreground);
+  font: 700 clamp(3.8rem, 6.2vw, 6rem) / 0.9 var(--font-heading), sans-serif;
+  letter-spacing: -0.06em;
+}
+.introMeasure {
+  position: relative;
+  display: block;
+  height: 64px;
+  margin-inline: 16px;
+}
+.introAxis,
+.introSeparator {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.introAxis i {
+  display: block;
+  width: auto;
+  flex: 1 1 0;
+  height: 1px;
+  background: var(--primary);
+}
+.introAxis {
+  display: flex;
+}
+.introSeparator {
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+}
+.introSeparator i {
+  position: absolute;
+  display: block;
+  background: var(--primary);
+  transform-origin: center;
+}
+.introNote {
+  margin-top: 28px;
+  color: var(--muted-foreground);
+  font: 0.65rem/1.5 var(--font-mono), monospace;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+}
 .header {
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -40,6 +151,14 @@
   min-height: 48px;
 }
 .brand span {
+  color: var(--primary);
+}
+.brand .brandMark {
+  color: var(--foreground);
+  display: inline-flex;
+  align-items: center;
+}
+.brand .brandMark > span {
   color: var(--primary);
 }
 .header > .brand {
@@ -928,6 +1047,35 @@
     padding-right: 24px;
   }
 }
+@media (max-width: 700px) {
+  .introLoader {
+    padding: 20px;
+  }
+  .introInstrument {
+    width: 100%;
+  }
+  .introWord {
+    font-size: clamp(1.8rem, 10vw, 3rem);
+  }
+  .introMeasure {
+    height: 36px;
+    margin-inline: 10px;
+  }
+  .introAxis i {
+    width: auto;
+  }
+  .introNote {
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .introLoader {
+    display: none;
+  }
+}
+
 @media (max-width: 700px) {
   .header {
     grid-template-columns: 1fr auto;

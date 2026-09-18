@@ -9,6 +9,7 @@ import {
   SupportSection,
 } from "@/components/one-access/home-sections";
 import { PublicFooter, PublicHeader } from "@/components/one-access/primitives";
+import { IntroLoader } from "@/components/one-access/intro-loader";
 import styles from "@/components/one-access/public-site.module.css";
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className={styles.site}>
+      <IntroLoader />
       <PublicHeader />
       <div className={styles.bodyGrid}>
         <aside className={styles.rail} aria-hidden="true">
