@@ -26,19 +26,19 @@ const routes = [
 
 export function RouteComparison() {
   return (
-    <div className={styles.comparison}>
+    <div className={styles.comparison} data-motion-route>
       {routes.map((route, index) => (
-        <article key={route.title} className={styles.route}>
+        <article key={route.title} className={styles.route} data-motion-route-panel>
           <div className={styles.routeHeading}>
             <span className="oa-label">Parcours 0{index + 1}</span>
             <h3>{route.title}</h3>
           </div>
-          <ol className={styles.routeSteps}>
+          <ol className={styles.routeSteps} data-motion-route-steps>
             {route.steps.map((step) => (
               <li key={step}>{step}</li>
             ))}
           </ol>
-          <dl className={styles.metrics}>
+          <dl className={styles.metrics} data-motion-route-metrics>
             <div>
               <dt>Temps</dt>
               <dd>{route.time}</dd>
@@ -54,7 +54,7 @@ export function RouteComparison() {
           </dl>
         </article>
       ))}
-      <div className={styles.routeConclusion}>
+      <div className={styles.routeConclusion} data-motion-route-conclusion>
         <strong>
           × 6 <span>de temps</span>
         </strong>

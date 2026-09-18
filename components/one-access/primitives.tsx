@@ -15,7 +15,7 @@ export function TechnicalSectionLabel({
   note?: string;
 }) {
   return (
-    <div className={styles.sectionLabel}>
+    <div className={styles.sectionLabel} data-motion-label>
       <span>{number}</span>
       <p>{children}</p>
       <i aria-hidden="true" />
@@ -53,9 +53,10 @@ export function DifferentialScale() {
       <p className={styles.scaleDirection}>
         Écart croissant <ArrowRight aria-hidden="true" size={18} />
       </p>
-      <ol className={styles.scale}>
+      <ol className={styles.scale} data-motion-scale>
+        <i className={styles.scaleAxis} data-motion-scale-axis aria-hidden="true" />
         {differentialLevels.map((level, index) => (
-          <li key={level.value}>
+          <li key={level.value} data-motion-scale-marker>
             <AccessibilityScore value={level.value} diamond={index % 2 === 1} />
             <div>
               <h3>{level.label}</h3>
@@ -128,7 +129,7 @@ export function PublicHeader() {
 
 export function PublicFooter() {
   return (
-    <footer className={styles.footer}>
+    <footer className={styles.footer} data-motion-footer>
       <Link href="/" className={styles.brand}>
         ONE<span>:</span>ACCESS
       </Link>

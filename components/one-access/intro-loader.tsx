@@ -6,6 +6,7 @@ import { loaderAnimationConfig } from "@/config/animations/loader.config";
 import styles from "./public-site.module.css";
 
 const seenKey = "one-access-intro-seen-v1";
+const INTRO_COMPLETE_EVENT = "one-access:intro-complete";
 
 export function IntroLoader() {
   const loaderRef = useRef<HTMLDivElement>(null);
@@ -179,6 +180,7 @@ export function IntroLoader() {
         .call(() => {
           if (!headerTarget) {
             loader.classList.remove(styles.introLoaderActive);
+            window.dispatchEvent(new CustomEvent(INTRO_COMPLETE_EVENT));
             return;
           }
 
@@ -190,6 +192,7 @@ export function IntroLoader() {
             onComplete: () => {
               gsap.set(headerTarget, { autoAlpha: 1 });
               loader.classList.remove(styles.introLoaderActive);
+              window.dispatchEvent(new CustomEvent(INTRO_COMPLETE_EVENT));
             },
           });
           exitTimeline.timeScale(timing.timeScale);
@@ -238,7 +241,12 @@ export function IntroLoader() {
   }, []);
 
   return (
-    <div ref={loaderRef} className={styles.introLoader} aria-hidden="true">
+    <div
+      ref={loaderRef}
+      className={styles.introLoader}
+      data-one-access-intro-loader
+      aria-hidden="true"
+    >
       <div ref={backdropRef} className={styles.introBackdrop} aria-hidden="true" />
       <div className={styles.introInstrument}>
         <div

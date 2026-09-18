@@ -27,7 +27,7 @@ import styles from "./public-site.module.css";
 export function Hero() {
   return (
     <section className={styles.hero} aria-labelledby="hero-title">
-      <figure className={styles.heroPhotograph}>
+      <figure className={styles.heroPhotograph} data-hero-image>
         <Image
           src={heroImage}
           alt="Rampe d’accès bordée de garde-corps, le long d’un mur en béton traversé par une lumière diagonale."
@@ -40,11 +40,11 @@ export function Hero() {
         <figcaption>Architecture / Lumière / Parcours</figcaption>
       </figure>
       <div className={styles.heroContent}>
-        <p className="oa-label">
+        <p className="oa-label" data-hero-structure>
           Mesurer l’accessibilité vécue{" "}
           <span className={styles.signal} aria-hidden="true" />
         </p>
-        <h1 id="hero-title">
+        <h1 id="hero-title" data-hero-headline>
           Même
           <br />
           destination.
@@ -55,11 +55,11 @@ export function Hero() {
             différents.
           </span>
         </h1>
-        <p className={styles.heroDescription}>
+        <p className={styles.heroDescription} data-hero-support>
           ONE:ACCESS mesure l’écart réel entre un trajet de référence et le
           trajet vécu par différents usagers.
         </p>
-        <div className={styles.heroActions}>
+        <div className={styles.heroActions} data-hero-cta>
           <LinkButton href="#methodologie" className={styles.cta}>
             Découvrir le référentiel <ArrowRight aria-hidden="true" />
           </LinkButton>
@@ -67,11 +67,11 @@ export function Hero() {
             Comprendre le concept <ArrowDown aria-hidden="true" size={18} />
           </a>
         </div>
-        <p className={styles.heroFootnote}>
+        <p className={styles.heroFootnote} data-hero-footnote>
           Un projet de standard. Une autre lecture de l’accessibilité.
         </p>
       </div>
-      <p className={styles.heroAnnotation}>
+      <p className={styles.heroAnnotation} data-hero-structure>
         Même origine.
         <br />
         Même destination.
@@ -88,6 +88,7 @@ export function ConceptSection() {
       id="concept"
       className={styles.section}
       aria-labelledby="concept-title"
+      data-motion-section
     >
       <TechnicalSectionLabel
         number="01"
@@ -112,6 +113,7 @@ export function ConceptSection() {
           </p>
           <div
             className={styles.ab}
+            data-motion-ab
             aria-label="Une même origine A, une même destination B"
           >
             <span>A</span>
@@ -123,7 +125,7 @@ export function ConceptSection() {
         <div>
           <ol className={styles.situations}>
             {situations.map((situation, index) => (
-              <li key={situation.title}>
+              <li key={situation.title} data-motion-card>
                 <span className={styles.situationIndex}>
                   0{index + 1}
                   <i aria-hidden="true" />
@@ -150,6 +152,7 @@ export function MethodologySection() {
       id="methodologie"
       className={styles.section}
       aria-labelledby="method-title"
+      data-motion-section
     >
       <TechnicalSectionLabel
         number="02"
@@ -190,7 +193,11 @@ export function MethodologySection() {
 export function BenefitsSection() {
   const icons = [Eye, ChartNoAxesColumnIncreasing, Settings2, Users, Focus];
   return (
-    <section className={styles.section} aria-labelledby="benefits-title">
+    <section
+      className={styles.section}
+      aria-labelledby="benefits-title"
+      data-motion-section
+    >
       <TechnicalSectionLabel number="03" note="Des observations aux décisions">
         Pourquoi le différentiel compte
       </TechnicalSectionLabel>
@@ -207,11 +214,11 @@ export function BenefitsSection() {
             Voir un exemple <ArrowRight size={18} aria-hidden="true" />
           </a>
         </div>
-        <ol className={styles.benefits}>
+        <ol className={styles.benefits} data-motion-process>
           {measurementBenefits.map((benefit, index) => {
             const Icon = icons[index];
             return (
-              <li key={benefit.title}>
+              <li key={benefit.title} data-motion-process-item>
                 <Icon size={28} strokeWidth={1.5} aria-hidden="true" />
                 <h3>{benefit.title}</h3>
                 <p>{benefit.text}</p>
@@ -230,6 +237,7 @@ export function ExampleSection() {
       id="exemple"
       className={styles.section}
       aria-labelledby="example-title"
+      data-motion-section
     >
       <TechnicalSectionLabel
         number="04"
@@ -267,6 +275,7 @@ export function ApplicationsSection() {
       id="applications"
       className={styles.section}
       aria-labelledby="applications-title"
+      data-motion-section
     >
       <TechnicalSectionLabel
         number="05"
@@ -282,7 +291,7 @@ export function ApplicationsSection() {
           <br />
           <span>aujourd’hui.</span>
         </h2>
-        <article className={styles.application}>
+        <article className={styles.application} data-motion-strategy>
           <span className={styles.applicationNumber}>01</span>
           <h3>Constructions neuves</h3>
           <p>
@@ -294,7 +303,7 @@ export function ApplicationsSection() {
             réelle.
           </p>
         </article>
-        <article className={styles.application}>
+        <article className={styles.application} data-motion-strategy>
           <span className={styles.applicationNumber}>02</span>
           <h3>Lieux existants</h3>
           <p>
@@ -307,7 +316,7 @@ export function ApplicationsSection() {
           </p>
         </article>
       </div>
-      <ol className={styles.process}>
+      <ol className={styles.process} data-motion-process-line>
         {[
           "Mesurer",
           "Identifier la cause",
@@ -329,7 +338,11 @@ export function ApplicationsSection() {
 
 export function SupportSection() {
   return (
-    <section className={styles.support} aria-labelledby="support-title">
+    <section
+      className={styles.support}
+      aria-labelledby="support-title"
+      data-motion-support
+    >
       <div
         className={`oa-stripes ${styles.supportStripes}`}
         aria-hidden="true"

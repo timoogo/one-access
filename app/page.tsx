@@ -10,6 +10,8 @@ import {
 } from "@/components/one-access/home-sections";
 import { PublicFooter, PublicHeader } from "@/components/one-access/primitives";
 import { IntroLoader } from "@/components/one-access/intro-loader";
+import { HeroMotion } from "@/components/one-access/hero-motion";
+import { HomeScrollMotion } from "@/components/one-access/home-scroll-motion";
 import styles from "@/components/one-access/public-site.module.css";
 
 export const metadata: Metadata = {
@@ -23,8 +25,9 @@ export default function Home() {
     <div className={styles.site}>
       <IntroLoader />
       <PublicHeader />
-      <div className={styles.bodyGrid}>
-        <aside className={styles.rail} aria-hidden="true">
+      <HomeScrollMotion>
+        <div className={styles.bodyGrid}>
+          <aside className={styles.rail} aria-hidden="true">
           <span>Projet / 2026</span>
           <strong>Référentiel d’accessibilité</strong>
           <i />
@@ -35,18 +38,21 @@ export default function Home() {
             <br />
             Autonomie
           </small>
-        </aside>
-        <main id="contenu" tabIndex={-1}>
-          <Hero />
-          <ConceptSection />
-          <MethodologySection />
-          <BenefitsSection />
-          <ExampleSection />
-          <ApplicationsSection />
-        </main>
-      </div>
-      <SupportSection />
-      <PublicFooter />
+          </aside>
+          <main id="contenu" tabIndex={-1}>
+            <HeroMotion>
+              <Hero />
+            </HeroMotion>
+            <ConceptSection />
+            <MethodologySection />
+            <BenefitsSection />
+            <ExampleSection />
+            <ApplicationsSection />
+          </main>
+        </div>
+        <SupportSection />
+        <PublicFooter />
+      </HomeScrollMotion>
     </div>
   );
 }
