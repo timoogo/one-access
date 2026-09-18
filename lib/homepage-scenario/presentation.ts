@@ -3,6 +3,16 @@ import { demoRoutes, pathNodes, places, preferredPath } from "./scenario";
 
 export const diagramWidth = 800;
 
+export function formatDuration(seconds: number): string {
+  const roundedSeconds = Math.round(seconds);
+  const minutes = Math.floor(roundedSeconds / 60);
+  const remainingSeconds = roundedSeconds % 60;
+
+  if (minutes === 0) return `${roundedSeconds} s`;
+  if (remainingSeconds === 0) return `${minutes} min`;
+  return `${minutes} min ${remainingSeconds} s`;
+}
+
 export function routePoints(routeIndex: 0 | 1, spatialReveal: number) {
   return pathNodes(preferredPath(demoRoutes[routeIndex])).map((id) => {
     const place = Object.values(places).find((place) => place.id === id)!;

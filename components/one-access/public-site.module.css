@@ -797,11 +797,32 @@
   stroke-dasharray: 3 5;
   opacity: 0.4;
 }
+.routeDiagram {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr);
+  gap: 12px;
+  min-height: 9rem;
+  margin-top: 12px;
+}
+.checkpointSidebar {
+  position: relative;
+  background: var(--background);
+  font: 0.625rem/1.35 var(--font-mono), monospace;
+}
+.checkpointSidebar ul {
+  display: grid;
+  gap: 6px;
+}
+.checkpointSidebar li > span {
+  display: block;
+}
+.checkpointLabel {
+  color: var(--muted-foreground);
+}
 .routePlot {
   display: block;
   width: 100%;
   height: 100px;
-  margin-top: 12px;
   overflow: visible;
 }
 .routePlot path {
@@ -828,6 +849,13 @@
 .routePlot [data-reached="true"] text {
   fill: var(--foreground);
 }
+.checkpointRatio {
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+.checkpointDimension {
+  color: var(--muted-foreground);
+}
 .mobileNodeLabel {
   display: none;
 }
@@ -847,6 +875,17 @@
 .routePanels .metrics dd {
   min-height: 2.6em;
   font-variant-numeric: tabular-nums;
+}
+.measurementReference,
+.measurementCompared {
+  display: block;
+}
+.measurementReference {
+  color: var(--foreground);
+}
+.measurementCompared {
+  padding-inline-start: 0.5em;
+  color: var(--muted-foreground);
 }
 .routeTextAlternative {
   position: absolute;
@@ -872,6 +911,14 @@
   .routePlot .mobileNodeLabel {
     display: block;
     font-size: 30px;
+  }
+  .routeDiagram {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 3rem 100px;
+    gap: 8px;
+  }
+  .checkpointSidebar ul {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 .route + .route {

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { demoRoutes, pathNodes, preferredPath, places } from "@/lib/homepage-scenario/scenario";
 import { getScenarioState } from "@/lib/homepage-scenario/progression";
-import { correspondencePoints, diagramWidth, routePoints, segmentDrawing } from "@/lib/homepage-scenario/presentation";
+import { correspondencePoints, diagramWidth, formatDuration, routePoints, segmentDrawing } from "@/lib/homepage-scenario/presentation";
 import { useRouteProgress } from "./use-route-progress";
 import styles from "./public-site.module.css";
 
@@ -11,6 +11,21 @@ const number = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 1 });
 const ratio = (value: number | null) => value === null ? "—" : number.format(value);
 
 interface PlotBounds { x: number; y: number; width: number; height: number }
+
+function LiveMeasurementPair({ reference, compared }: { reference: string; compared: string }) {
+  return (
+    <>
+      <span className={styles.measurementReference}>
+        <span className={styles.routeTextAlternative}>Référence : </span>
+        {reference} <span aria-hidden="true">/</span>
+      </span>
+      <span className={styles.measurementCompared}>
+        <span className={styles.routeTextAlternative}>Accès adapté, valeur actuelle : </span>
+        {compared}
+      </span>
+    </>
+  );
+}
 
 export function RouteComparison() {
   const { rootRef, progress } = useRouteProgress();
@@ -62,6 +77,20 @@ export function RouteComparison() {
                 <span className="oa-label">Parcours 0{index + 1}</span>
                 <h3>{route.title}</h3>
               </div>
+              <div className={styles.routeDiagram}>
+                <div className={styles.checkpointSidebar}>
+                  {index === 0 && (
+                    <ul aria-label="Rapports historiques aux points communs">
+                      {state.checkpointComparisons.map((checkpoint) => (
+                        <li key={checkpoint.nodeId} data-checkpoint-comparison={checkpoint.nodeId}>
+                          <span className={styles.checkpointLabel}>{points.find((point) => point.id === checkpoint.nodeId)!.label}</span>
+                          <span className={styles.checkpointRatio}>× {ratio(checkpoint.timeRatio)} <span className={styles.checkpointDimension}>T</span></span>
+                          <span className={styles.checkpointRatio}>× {ratio(checkpoint.distanceRatio)} <span className={styles.checkpointDimension}>D</span></span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               <svg data-route-plot viewBox={`0 0 ${diagramWidth} 120`} preserveAspectRatio="none" className={styles.routePlot} aria-hidden="true" focusable="false">
                 {points.slice(1).map((point, segment) => (
                   <g key={`${points[segment].id}/${point.id}`}>
@@ -78,6 +107,19 @@ export function RouteComparison() {
                   </g>
                 ))}
               </svg>
+              </div>
+              {index === 0 && (
+                <ul className={styles.routeTextAlternative} aria-label="Comparaisons aux points communs">
+                  {state.checkpointComparisons.map((checkpoint) => (
+                    <li key={checkpoint.nodeId}>
+                      {points.find((point) => point.id === checkpoint.nodeId)!.label} :
+                      référence {formatDuration(checkpoint.reference.seconds)}, {number.format(checkpoint.reference.meters)} m ;
+                      accès adapté {formatDuration(checkpoint.compared.seconds)}, {number.format(checkpoint.compared.meters)} m.
+                      Rapports à l’arrivée : × {ratio(checkpoint.timeRatio)} en temps, × {ratio(checkpoint.distanceRatio)} en distance.
+                    </li>
+                  ))}
+                </ul>
+              )}
               <ol className={styles.routeTextAlternative} aria-label={`Étapes — ${route.title}`}>
                 {pathNodes(preferredPath(route)).map((id) => <li key={id}>
                   {Object.values(places).find((place) => place.id === id)!.label}
@@ -86,8 +128,12 @@ export function RouteComparison() {
               </ol>
               <p className={styles.routeActivity}>{current.activity}</p>
               <dl className={styles.metrics}>
-                <div><dt>Temps</dt><dd>{number.format(current.seconds / 60)} min</dd></div>
-                <div><dt>Distance</dt><dd>{number.format(current.meters)} m</dd></div>
+                <div><dt>Temps</dt><dd>{index === 0 ? (
+                  <LiveMeasurementPair reference={formatDuration(current.seconds)} compared={formatDuration(state.compared.seconds)} />
+                ) : formatDuration(current.seconds)}</dd></div>
+                <div><dt>Distance</dt><dd>{index === 0 ? (
+                  <LiveMeasurementPair reference={`${number.format(current.meters)} m`} compared={`${number.format(state.compared.meters)} m`} />
+                ) : `${number.format(current.meters)} m`}</dd></div>
                 <div><dt>Autonomie</dt><dd>{current.assisted ? "Assistance obligatoire" : index === 0 ? "Sans assistance" : "Sans aide à ce stade"}</dd></div>
               </dl>
             </article>
@@ -101,6 +147,7 @@ export function RouteComparison() {
       </div>
       <p className={styles.note}>
         Traits de liaison : même lieu physique, pas même instant. C : palier commun ; F : foyer commun. Schéma non à l’échelle.
+        Repères T / D : rapports de temps / distance à l’arrivée de chaque parcours au même point.
         Les deux parcours avancent à des rythmes de démonstration distincts.
       </p>
       <p className={styles.note}>
