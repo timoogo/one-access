@@ -523,7 +523,7 @@
   position: absolute;
   inset: 0;
   background: #ff4b0b;
-  transform: scaleY(0);
+  transform: scaleY(var(--example-progress, 1));
   transform-origin: top;
 }
 @media (max-width: 1100px) {
@@ -781,6 +781,98 @@
 .route {
   border: 1px solid var(--border);
   padding: 18px;
+}
+.routePanels {
+  position: relative;
+  min-width: 0;
+}
+.routeCorrespondences {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  stroke: var(--muted-foreground);
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+  opacity: 0.4;
+}
+.routePlot {
+  display: block;
+  width: 100%;
+  height: 100px;
+  margin-top: 12px;
+  overflow: visible;
+}
+.routePlot path {
+  fill: none;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.routeTrack {
+  stroke: var(--border);
+}
+.routeTravelled {
+  stroke: var(--primary);
+}
+.routeNode {
+  fill: var(--primary);
+}
+.routePlot text {
+  fill: var(--muted-foreground);
+  font: 16px var(--font-mono), monospace;
+  paint-order: stroke;
+  stroke: var(--background);
+  stroke-width: 5px;
+}
+.routePlot [data-reached="true"] text {
+  fill: var(--foreground);
+}
+.mobileNodeLabel {
+  display: none;
+}
+.routeActivity {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 3.1em;
+  background: var(--background);
+  font: 0.7rem/1.4 var(--font-mono), monospace;
+  color: var(--muted-foreground);
+}
+.routePanels :is(.routeHeading, .metrics) {
+  position: relative;
+  background: var(--background);
+}
+.routePanels .metrics dd {
+  min-height: 2.6em;
+  font-variant-numeric: tabular-nums;
+}
+.routeTextAlternative {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.routeConclusion strong {
+  min-width: 4ch;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 700px) {
+  .routeCorrespondences {
+    opacity: 0.25;
+  }
+  .desktopNodeLabel {
+    display: none;
+  }
+  .routePlot .mobileNodeLabel {
+    display: block;
+    font-size: 30px;
+  }
 }
 .route + .route {
   border-top: 0;

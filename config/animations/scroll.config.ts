@@ -35,26 +35,10 @@ export const scrollAnimationConfig = {
         mobile: 230,
       },
       mobileBreakpoint: 700,
-      scrub: 0.5,
+      scrub: true,
       pin: true,
       pinSpacing: true,
       anticipatePin: 1,
-    },
-    timeline: {
-      routesStart: 0.06,
-      // Animation positions only; these are not scores, ratios, or measurements.
-      referenceComplete: 0.42,
-      adaptedComplete: 0.8,
-      referenceMetricsStart: 0.46,
-      adaptedMetricsStart: 0.83,
-      conclusionStart: 0.88,
-      finalHoldStart: 0.92,
-      release: 1,
-    },
-    motion: {
-      panelRevealDuration: 0.06,
-      metricsDuration: 0.06,
-      conclusionDuration: 0.06,
     },
     visual: {
       verticalOffsetPx: 0,

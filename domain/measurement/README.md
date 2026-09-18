@@ -16,6 +16,10 @@ La distance utilise `Meters` et le temps utilise `Seconds`.
 
 Aucune échelle définitive n'est encore définie pour l'effort, la complexité et l'autonomie. Ces valeurs restent donc provisoires et ne constituent pas une formule ou un standard validé.
 
+Ces trois dimensions numériques sont optionnelles : leur absence signifie qu'elles
+ne sont pas mesurées, et non qu'elles valent zéro. Une démonstration peut décrire
+l'assistance qualitativement, sans lui attribuer une valeur numérique arbitraire.
+
 ## Invariants
 
 - Une mesure décrit un parcours ; elle ne modifie pas le parcours.
