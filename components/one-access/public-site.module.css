@@ -2,8 +2,8 @@
   max-width: 1440px;
   width: 100%;
   margin: 0 auto;
-  border-inline: 1px solid var(--border);
-  background: var(--background);
+  border-inline: 1px solid var(--line);
+  background: var(--surface);
 }
 .site :is(section[id], main[id]) {
   scroll-margin-top: 24px;
@@ -14,13 +14,13 @@
 }
 .site h2 span,
 .supportPage h1 span {
-  color: var(--primary);
+  color: var(--signal);
 }
 .site p {
   line-height: 1.55;
 }
 .site :is(a, button):focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid var(--signal);
   outline-offset: 5px;
 }
 .introLoader {
@@ -31,22 +31,22 @@
   align-items: center;
   padding: 24px;
   background: transparent;
-  color: var(--foreground);
+  color: var(--ink);
   pointer-events: none;
 }
 .introBackdrop {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: var(--background);
+  background: var(--surface);
   background-image: linear-gradient(
       to right,
-      color-mix(in srgb, var(--border) 22%, transparent) 1px,
+      color-mix(in srgb, var(--line) 22%, transparent) 1px,
       transparent 1px
     ),
     linear-gradient(
       to bottom,
-      color-mix(in srgb, var(--border) 16%, transparent) 1px,
+      color-mix(in srgb, var(--line) 16%, transparent) 1px,
       transparent 1px
   );
   background-size: 5rem 5rem;
@@ -71,9 +71,9 @@
 
   background: radial-gradient(
     ellipse at center,
-    var(--background) 0%,
-    color-mix(in srgb, var(--background) 92%, transparent) 35%,
-    color-mix(in srgb, var(--background) 55%, transparent) 60%,
+    var(--surface) 0%,
+    color-mix(in srgb, var(--surface) 92%, transparent) 35%,
+    color-mix(in srgb, var(--surface) 55%, transparent) 60%,
     transparent 80%
   );
 
@@ -87,7 +87,7 @@
   justify-content: center;
 }
 .introWord {
-  color: var(--foreground);
+  color: var(--ink);
   font: 700 clamp(3.8rem, 6.2vw, 6rem) / 0.9 var(--font-heading), sans-serif;
   letter-spacing: -0.06em;
 }
@@ -110,7 +110,7 @@
   width: auto;
   flex: 1 1 0;
   height: 1px;
-  background: var(--primary);
+  background: var(--signal);
 }
 .introAxis {
   display: flex;
@@ -123,12 +123,12 @@
 .introSeparator i {
   position: absolute;
   display: block;
-  background: var(--primary);
+  background: var(--signal);
   transform-origin: center;
 }
 .introNote {
   margin-top: 28px;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
   font: 0.65rem/1.5 var(--font-mono), monospace;
   letter-spacing: 0.12em;
   text-align: center;
@@ -176,7 +176,7 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: var(--background);
+  background: var(--surface);
   opacity: calc(1 - var(--oa-route-grid-opacity));
 }
 .comparison > * {
@@ -185,9 +185,9 @@
 }
 .header {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr auto auto;
   min-height: 80px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--line);
   align-items: center;
 }
 .brand {
@@ -200,20 +200,20 @@
   min-height: 48px;
 }
 .brand span {
-  color: var(--primary);
+  color: var(--signal);
 }
 .brand .brandMark {
-  color: var(--foreground);
+  color: var(--ink);
   display: inline-flex;
   align-items: center;
 }
 .brand .brandMark > span {
-  color: var(--primary);
+  color: var(--signal);
 }
 .header > .brand {
   align-self: stretch;
   padding: 0 30px;
-  border-right: 1px solid var(--border);
+  border-right: 1px solid var(--line);
 }
 .header nav {
   display: flex;
@@ -231,7 +231,7 @@
 .header nav a:hover,
 .textLink:hover,
 .footer a:hover {
-  color: var(--primary);
+  color: var(--signal-text);
 }
 .cta {
   min-height: 48px;
@@ -248,14 +248,19 @@
 .header > .cta {
   margin-right: 24px;
 }
+.headerTheme {
+  display: flex;
+  align-items: center;
+  padding-right: 22px;
+}
 .skipLink {
   position: fixed;
   top: 12px;
   left: 12px;
   padding: 15px;
   z-index: 50;
-  background: var(--foreground);
-  color: var(--background);
+  background: var(--ink);
+  color: var(--surface);
   transform: translateY(-200%);
 }
 .skipLink:focus {
@@ -269,7 +274,7 @@
   min-width: 0;
 }
 .rail {
-  border-right: 1px solid var(--border);
+  border-right: 1px solid var(--line);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -278,7 +283,7 @@
 }
 .rail > span {
   writing-mode: vertical-rl;
-  color: var(--primary);
+  color: var(--signal-text);
   font:
     600 0.8rem var(--font-mono),
     monospace;
@@ -295,20 +300,20 @@
 .rail i {
   width: 5px;
   height: 75px;
-  background: var(--primary);
+  background: var(--signal);
 }
 .rail small {
   font:
     0.6rem/1.6 var(--font-mono),
     monospace;
   text-transform: uppercase;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
 }
 .hero {
   position: relative;
   isolation: isolate;
   min-height: 610px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--line);
   overflow: hidden;
 }
 .heroContent {
@@ -323,19 +328,19 @@
   letter-spacing: -0.045em;
 }
 .hero h1 > span {
-  color: var(--primary);
+  color: var(--signal);
 }
 .signal {
   display: inline-block;
   height: 5px;
   width: 42px;
   margin-left: 18px;
-  background: var(--primary);
+  background: var(--signal);
   vertical-align: middle;
 }
 .heroDescription {
   max-width: 480px;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
   font-size: 1.05rem;
 }
 .heroActions {
@@ -355,7 +360,7 @@
   text-underline-offset: 5px;
 }
 .heroFootnote {
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
   font:
     0.7rem var(--font-mono),
     monospace;
@@ -366,8 +371,8 @@
   right: 26px;
   top: 35px;
   padding: 8px 12px;
-  border-left: 1px solid var(--border);
-  background: color-mix(in srgb, var(--background) 85%, transparent);
+  border-left: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
   font:
     0.7rem/1.6 var(--font-mono),
     monospace;
@@ -375,7 +380,7 @@
   z-index: 1;
 }
 .heroAnnotation span {
-  color: var(--primary);
+  color: var(--signal-text);
 }
 .heroPhotograph {
   position: absolute;
@@ -383,7 +388,7 @@
   width: 55%;
   margin: 0;
   overflow: hidden;
-  border-left: 1px solid var(--border);
+  border-left: 1px solid var(--line);
 }
 .heroImage {
   object-fit: cover;
@@ -394,7 +399,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, var(--background), transparent 38%);
+  background: linear-gradient(90deg, var(--surface), transparent 38%);
   pointer-events: none;
 }
 .heroPhotograph figcaption {
@@ -403,9 +408,9 @@
   bottom: 18px;
   z-index: 1;
   padding: 8px 12px;
-  border-left: 1px solid var(--primary);
-  background: color-mix(in srgb, var(--background) 85%, transparent);
-  color: var(--foreground);
+  border-left: 1px solid var(--signal);
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
+  color: var(--ink);
   font: 0.6rem/1.5 var(--font-mono), monospace;
   text-transform: uppercase;
 }
@@ -416,25 +421,25 @@
   width: 52%;
   height: 100%;
   overflow: hidden;
-  background: var(--card);
+  background: var(--surface-raised);
 }
 .architecture::after {
   content: "";
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, var(--background), transparent 70%),
-    linear-gradient(0deg, var(--background), transparent 45%);
+    linear-gradient(90deg, var(--surface), transparent 70%),
+    linear-gradient(0deg, var(--surface), transparent 45%);
 }
 .architectureDrawing {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     128deg,
-    var(--card) 25%,
-    var(--input) 25.2%,
-    var(--secondary) 62%,
-    var(--card) 62.2%
+    var(--surface-raised) 25%,
+    var(--line-strong) 25.2%,
+    var(--surface-subtle) 62%,
+    var(--surface-raised) 62.2%
   );
 }
 .architectureDrawing span {
@@ -446,12 +451,12 @@
     repeating-linear-gradient(
       0deg,
       transparent 0 89px,
-      var(--border) 90px 91px
+      var(--line) 90px 91px
     ),
     repeating-linear-gradient(
       90deg,
       transparent 0 139px,
-      var(--border) 140px 141px
+      var(--line) 140px 141px
     );
   transform: skewY(-17deg);
   opacity: 0.7;
@@ -464,27 +469,27 @@
   clip-path: polygon(22% 0, 100% 21%, 100% 100%, 0 100%);
   background: linear-gradient(
     140deg,
-    var(--foreground),
-    var(--muted-foreground) 43%,
-    var(--secondary)
+    var(--ink),
+    var(--ink-muted) 43%,
+    var(--surface-subtle)
   );
   opacity: 0.8;
 }
 .architectureDrawing span:nth-child(3) {
   width: 125%;
   height: 38%;
-  border-top: 12px solid var(--muted-foreground);
+  border-top: 12px solid var(--ink-muted);
   border-radius: 50% 48% 0 0;
-  background: linear-gradient(0deg, var(--background), var(--secondary));
+  background: linear-gradient(0deg, var(--surface), var(--surface-subtle));
   bottom: -2%;
   left: -24%;
   transform: rotate(-23deg);
-  box-shadow: 0 -2px 0 var(--foreground);
+  box-shadow: 0 -2px 0 var(--ink);
 }
 .architectureDrawing span:nth-child(4) {
   width: 120%;
   height: 21%;
-  border-top: 2px solid var(--muted-foreground);
+  border-top: 2px solid var(--ink-muted);
   bottom: 0;
   transform: rotate(-23deg);
   left: -10%;
@@ -494,7 +499,7 @@
   bottom: 15px;
   right: 18px;
   z-index: 1;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
   font:
     0.6rem/1.5 var(--font-mono),
     monospace;
@@ -503,7 +508,7 @@
 }
 .section {
   padding: 0 30px 30px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--line);
 }
 .sectionLabel {
   display: flex;
@@ -524,15 +529,28 @@
   bottom: var(--example-progress-bottom);
   left: var(--example-progress-left);
   width: 1px;
-  background: color-mix(in srgb, var(--foreground) 12%, transparent);
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
   pointer-events: none;
 }
 .exampleProgressFill {
   position: absolute;
   inset: 0;
-  background: #ff4b0b;
+  background: var(--signal);
   transform: scaleY(var(--example-progress, 1));
   transform-origin: top;
+}
+@media (max-width: 1100px) {
+  .header {
+    grid-template-columns: auto 1fr auto;
+  }
+  .headerTheme {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: flex-end;
+    padding: 0 20px;
+    min-height: 44px;
+    border-top: 1px solid var(--line);
+  }
 }
 @media (max-width: 1100px) {
   .exampleSection {
@@ -555,7 +573,7 @@
   font:
     600 1.1rem var(--font-heading),
     sans-serif;
-  color: var(--primary);
+  color: var(--signal-text);
 }
 .sectionLabel p {
   font-size: 0.78rem;
@@ -564,14 +582,14 @@
 .sectionLabel i {
   width: 100px;
   height: 1px;
-  background: var(--border);
+  background: var(--line);
 }
 .sectionLabel small {
   font:
     0.6rem/1.5 var(--font-mono),
     monospace;
   letter-spacing: 0.1em;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
 }
 .conceptGrid {
   display: grid;
@@ -582,7 +600,7 @@
 .section h2 + p + p {
   margin-top: 16px;
   font-size: 0.875rem;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
   max-width: 48ch;
 }
 .ab {
@@ -593,7 +611,7 @@
   max-width: 270px;
 }
 .ab span {
-  border: 1px solid var(--primary);
+  border: 1px solid var(--signal);
   width: 37px;
   height: 37px;
   display: grid;
@@ -603,28 +621,28 @@
 .ab i {
   height: 1px;
   flex: 1;
-  background: var(--primary);
+  background: var(--signal);
 }
 .ab svg {
-  color: var(--primary);
+  color: var(--signal);
 }
 .situations {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid var(--border);
-  border-left: 1px solid var(--border);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
 }
 .situations li {
   padding: 15px;
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  background: linear-gradient(125deg, var(--card), var(--background));
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(125deg, var(--surface-raised), var(--surface));
 }
 .situationIndex {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
   font:
     0.7rem var(--font-mono),
     monospace;
@@ -633,7 +651,7 @@
 .situationIndex i {
   width: 8px;
   height: 8px;
-  border: 1px solid var(--primary);
+  border: 1px solid var(--signal);
 }
 .situations h3 {
   font-size: 0.85rem;
@@ -642,10 +660,10 @@
 .situations p {
   font-size: 0.75rem;
   margin-top: 7px;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
 }
 .note {
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
   font-size: 0.75rem;
   margin-top: 16px;
 }
@@ -661,9 +679,9 @@
   font:
     0.65rem var(--font-mono),
     monospace;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
   text-transform: uppercase;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--line);
   padding-bottom: 10px;
 }
 .scale {
@@ -681,7 +699,7 @@
   left: 5%;
   right: 5%;
   height: 1px;
-  background: var(--primary);
+  background: var(--signal);
   transform: scaleX(0);
   transform-origin: left center;
 }
@@ -697,18 +715,18 @@
   place-items: center;
   width: 64px;
   height: 64px;
-  background: var(--primary);
-  color: var(--primary-foreground);
+  background: var(--signal);
+  color: var(--signal-ink);
   font:
     700 1.9rem var(--font-heading),
     sans-serif;
-  border: 2px solid var(--primary);
+  border: 2px solid var(--signal);
   flex-shrink: 0;
 }
 .diamond {
   transform: rotate(45deg);
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--surface);
+  color: var(--ink);
   width: 54px;
   height: 54px;
   margin: 5px;
@@ -727,18 +745,18 @@
   display: block;
   width: 24px;
   height: 3px;
-  background: var(--primary);
+  background: var(--signal);
   margin: 12px auto;
 }
 .scale li p {
   font-size: 0.7rem;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
   text-align: center;
 }
 .methodNote {
   margin-top: 25px;
   padding-top: 18px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--line);
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   gap: 30px;
@@ -746,7 +764,7 @@
 }
 .methodNote p {
   font-size: 0.75rem;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
 }
 .benefitsGrid {
   display: grid;
@@ -761,7 +779,7 @@
   grid-template-columns: repeat(5, 1fr);
 }
 .benefits li {
-  border-left: 1px solid var(--border);
+  border-left: 1px solid var(--line);
   padding: 5px 15px;
 }
 .benefits h3 {
@@ -771,7 +789,7 @@
 }
 .benefits p {
   font-size: 0.75rem;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
   margin-top: 10px;
 }
 .exampleGrid {
@@ -810,13 +828,13 @@
 }
 .checkpointRail > p {
   margin-bottom: 18px;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
   font-size: 0.6rem;
 }
 .checkpointRail li {
   position: relative;
   margin-left: 3px;
-  border-left: 1px solid var(--border);
+  border-left: 1px solid var(--line);
   padding: 0 0 22px 12px;
   min-height: 5.5rem;
 }
@@ -830,13 +848,13 @@
   left: -3px;
   width: 5px;
   height: 5px;
-  background: var(--muted-foreground);
+  background: var(--ink-muted);
 }
 .checkpointRail li[data-active="true"]::before {
-  background: var(--primary);
+  background: var(--signal);
 }
 .checkpointRail li[data-active="true"] .checkpointLabel {
-  color: var(--foreground);
+  color: var(--ink);
 }
 .checkpointRail .checkpointRatio {
   display: block;
@@ -850,10 +868,10 @@
   width: 100%;
   height: 145px;
   margin-top: 22px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--line);
 }
 .route {
-  border: 1px solid var(--border);
+  border: 1px solid var(--line);
   padding: 18px;
 }
 .routePanels {
@@ -866,7 +884,7 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  stroke: var(--muted-foreground);
+  stroke: var(--ink-muted);
   stroke-width: 1;
   stroke-dasharray: 3 5;
   opacity: 0.4;
@@ -875,7 +893,7 @@
   margin-top: 12px;
 }
 .checkpointLabel {
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
 }
 .routePlot {
   display: block;
@@ -889,30 +907,30 @@
   vector-effect: non-scaling-stroke;
 }
 .routeTrack {
-  stroke: var(--border);
+  stroke: var(--line);
 }
 .routeTravelled {
-  stroke: var(--primary);
+  stroke: var(--signal);
 }
 .routeNode {
-  fill: var(--primary);
+  fill: var(--signal);
 }
 .routePlot text {
-  fill: var(--muted-foreground);
+  fill: var(--ink-muted);
   font: 12px var(--font-mono), monospace;
   paint-order: stroke;
-  stroke: var(--background);
+  stroke: var(--surface);
   stroke-width: 5px;
 }
 .routePlot [data-reached="true"] text {
-  fill: var(--foreground);
+  fill: var(--ink);
 }
 .checkpointRatio {
-  color: var(--primary);
+  color: var(--signal-text);
   font-variant-numeric: tabular-nums;
 }
 .checkpointDimension {
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
 }
 .mobileNodeLabel {
   display: none;
@@ -922,13 +940,13 @@
   width: fit-content;
   max-width: 100%;
   min-height: 3.1em;
-  background: var(--background);
+  background: var(--surface);
   font: 0.7rem/1.4 var(--font-mono), monospace;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
 }
 .routePanels :is(.routeHeading, .metrics) {
   position: relative;
-  background: var(--background);
+  background: var(--surface);
 }
 .routePanels .metrics dd {
   min-height: 2.6em;
@@ -939,11 +957,11 @@
   display: block;
 }
 .measurementReference {
-  color: var(--foreground);
+  color: var(--ink);
 }
 .measurementCompared {
   padding-inline-start: 0.5em;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
 }
 .routeTextAlternative {
   position: absolute;
@@ -973,7 +991,7 @@
 }
 .route + .route {
   border-top: 0;
-  border-left: 2px solid var(--primary);
+  border-left: 2px solid var(--signal);
 }
 .routeHeading {
   display: flex;
@@ -981,7 +999,7 @@
   gap: 18px;
 }
 .routeHeading > span {
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
 }
 .routeHeading h3 {
   font-size: 0.95rem;
@@ -997,7 +1015,7 @@
     0.68rem/1.5 var(--font-mono),
     monospace;
   padding: 9px 8px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--line);
   position: relative;
 }
 .routeSteps li::before {
@@ -1007,11 +1025,11 @@
   height: 5px;
   top: -3px;
   left: 8px;
-  background: var(--foreground);
+  background: var(--ink);
 }
 .routeSteps li:first-child,
 .routeSteps li:last-child {
-  color: var(--primary);
+  color: var(--signal-text);
 }
 .metrics {
   display: grid;
@@ -1019,7 +1037,7 @@
   gap: 12px;
 }
 .metrics > div + div {
-  border-left: 1px solid var(--border);
+  border-left: 1px solid var(--line);
   padding-left: 15px;
 }
 .metrics dt {
@@ -1027,7 +1045,7 @@
     0.65rem var(--font-mono),
     monospace;
   text-transform: uppercase;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
 }
 .metrics dd {
   font:
@@ -1042,7 +1060,7 @@
   padding-top: 20px;
 }
 .routeConclusion strong {
-  color: var(--primary);
+  color: var(--signal-text);
   font:
     700 1.9rem var(--font-heading),
     sans-serif;
@@ -1050,7 +1068,7 @@
 }
 .routeConclusion strong span {
   display: block;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
   font:
     0.65rem var(--font-mono),
     monospace;
@@ -1082,16 +1100,16 @@
 }
 .application {
   min-width: 0;
-  border-left: 1px solid var(--border);
+  border-left: 1px solid var(--line);
   padding-left: 22px;
   position: relative;
 }
 .applicationStart {
-  border-left-color: var(--primary);
+  border-left-color: var(--signal);
 }
 .applicationNumber {
   display: block;
-  color: var(--primary);
+  color: var(--signal);
   font:
     500 1.8rem var(--font-heading),
     sans-serif;
@@ -1103,16 +1121,16 @@
 .application p {
   font-size: 0.85rem;
   margin-top: 12px;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
 }
 .application .applicationAim {
-  color: var(--foreground);
+  color: var(--ink);
 }
 .applicationProcess {
   margin-top: 30px;
   padding-top: 18px;
-  border-top: 1px solid var(--border);
-  color: var(--muted-foreground);
+  border-top: 1px solid var(--line);
+  color: var(--ink-muted);
 }
 .applicationProcess > p {
   font-size: 0.6rem;
@@ -1129,22 +1147,22 @@
 }
 .process li + li::before {
   content: "→";
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
   margin-right: 15px;
 }
 .places {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: 24px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--line);
   font: 0.75rem/1.5 var(--font-mono), monospace;
-  color: var(--foreground);
+  color: var(--ink);
 }
 .places li {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--line);
 }
 .places li:nth-child(even) {
-  border-left: 1px solid var(--border);
+  border-left: 1px solid var(--line);
 }
 .placeButton {
   display: flex;
@@ -1175,8 +1193,8 @@
   flex: none;
   width: 18px;
   height: 18px;
-  border: 1px solid var(--primary);
-  color: var(--primary);
+  border: 1px solid var(--signal);
+  color: var(--signal);
   font-size: 0.85rem;
   line-height: 1;
   transition:
@@ -1185,15 +1203,15 @@
 }
 .placeButton:hover .placeLabel,
 .placeButton:focus-visible .placeLabel {
-  text-decoration-color: var(--primary);
+  text-decoration-color: var(--signal);
 }
 .placeButton:hover .placeIndicator,
 .placeButton:focus-visible .placeIndicator {
-  background: var(--primary);
-  color: var(--primary-foreground);
+  background: var(--signal);
+  color: var(--signal-ink);
 }
 .places .placeButton:focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid var(--signal);
   outline-offset: -2px;
 }
 .support {
@@ -1201,7 +1219,7 @@
   grid-template-columns: 110px 1fr auto;
   gap: 30px;
   align-items: center;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--line);
   padding-right: 35px;
 }
 .supportStripes {
@@ -1217,7 +1235,7 @@
 }
 .support p:last-child {
   font-size: 0.875rem;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
 }
 .footer {
   display: flex;
@@ -1234,7 +1252,7 @@
     0.65rem/1.6 var(--font-mono),
     monospace;
   text-transform: uppercase;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
 }
 .supportPage {
   min-height: 75svh;
@@ -1250,14 +1268,14 @@
 }
 .supportPage > p:not(:first-child) {
   max-width: 620px;
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
   margin-top: 20px;
 }
 .supportCommitment {
   max-width: 620px;
   margin-top: 28px;
   padding-left: 18px;
-  border-left: 2px solid var(--primary);
+  border-left: 2px solid var(--signal);
 }
 .supportCommitment h2 {
   font-size: 1.1rem;
@@ -1274,7 +1292,7 @@
 }
 .supportCommitment p,
 .supportActions p {
-  color: var(--muted-foreground);
+  color: var(--ink-muted);
   font-size: 0.875rem;
 }
 .supportActions {
@@ -1449,10 +1467,17 @@
     gap: 10px;
     font-size: 0.7rem;
   }
+  .headerTheme {
+    grid-row: 3;
+    justify-content: stretch;
+  }
+  .headerTheme > * {
+    flex: 1;
+  }
   .header nav {
     grid-row: 2;
     grid-column: 1 / -1;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--line);
     justify-content: space-between;
     padding: 0 20px;
     gap: 12px;
@@ -1502,7 +1527,7 @@
     width: 100%;
     height: clamp(340px, 100vw, 520px);
     border-left: 0;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--line);
   }
   .hero {
     display: flex;
@@ -1512,7 +1537,7 @@
     object-position: 50% 70%;
   }
   .heroPhotograph::after {
-    background: linear-gradient(180deg, var(--background), transparent 18%);
+    background: linear-gradient(180deg, var(--surface), transparent 18%);
   }
   .exampleGrid .comparison {
     min-height: auto;
@@ -1634,7 +1659,7 @@
     grid-template-columns: 30px 1fr;
     gap: 0 18px;
     border-left: 0;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--line);
     padding: 18px 0;
   }
   .benefits h3 {
@@ -1662,7 +1687,7 @@
   }
   .routeSteps li {
     border-top: 0;
-    border-left: 1px solid var(--border);
+    border-left: 1px solid var(--line);
     padding: 7px 18px;
     font-size: 0.8rem;
   }
@@ -1676,7 +1701,7 @@
   .metrics > div:last-child {
     grid-column: 1 / -1;
     border-left: 0;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--line);
     padding: 12px 0 0;
     margin-top: 4px;
   }
@@ -1716,7 +1741,7 @@
   .process li::before,
   .process li + li::before {
     content: "↓";
-    color: var(--muted-foreground);
+    color: var(--ink-muted);
     margin: 0;
   }
   .process li:first-child::before {

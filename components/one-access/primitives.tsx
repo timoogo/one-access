@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { LinkButton } from "@/components/ui/button";
 import { differentialLevels } from "@/lib/one-access-content";
+import { ThemeSwitcher } from "./theme-switcher";
 import styles from "./public-site.module.css";
 
 export function TechnicalSectionLabel({
@@ -121,6 +122,9 @@ export function PublicHeader() {
           <Link href="/#methodologie">Méthodologie</Link>
           <Link href="/#applications">Cas d’usage</Link>
         </nav>
+        <div className={styles.headerTheme}>
+          <ThemeSwitcher />
+        </div>
         <SupportLink>Soutenir</SupportLink>
       </header>
     </>

@@ -27,14 +27,14 @@ export default function DesignSystemPage() {
 
       <section className="grid border-b lg:grid-cols-[5rem_1fr_22rem]">
         <aside className="hidden border-r lg:flex lg:flex-col lg:items-center lg:justify-between lg:py-8">
-          <span className="oa-label text-primary [writing-mode:vertical-rl]">Reference / 2026</span>
+          <span className="oa-label text-signal-text [writing-mode:vertical-rl]">Reference / 2026</span>
           <span className="h-16 w-1 bg-primary" aria-hidden="true" />
           <span className="oa-label [writing-mode:vertical-rl]">Mobility · Usages · Society</span>
         </aside>
         <div className="flex min-h-[34rem] flex-col justify-between p-6 sm:p-10 lg:p-14">
           <div className="flex items-center gap-4"><Badge>System 01</Badge><Separator className="max-w-32" /><span className="oa-label text-muted-foreground">Visual language</span></div>
           <div className="max-w-4xl py-16">
-            <h1 className="text-[clamp(3.5rem,9vw,8.75rem)] leading-[0.82]">One access.<span className="block text-primary">Different paths.</span></h1>
+            <h1 className="text-[clamp(3.5rem,9vw,8.75rem)] leading-[0.82]">One access.<span className="block text-signal-text">Different paths.</span></h1>
             <p className="mt-8 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">A reusable, high-contrast interface system shaped by public infrastructure, editorial wayfinding, and the realities of inclusive journeys.</p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -52,14 +52,14 @@ export default function DesignSystemPage() {
       <section id="system" aria-labelledby="system-title" className="grid border-b lg:grid-cols-[5rem_1fr]">
         <div className="hidden border-r lg:block" aria-hidden="true" />
         <div className="p-6 sm:p-10 lg:p-14">
-          <div className="mb-8 flex items-center gap-4"><span className="font-heading text-xl font-bold text-primary">02</span><h2 id="system-title" className="text-2xl sm:text-3xl">System foundations</h2><Separator className="hidden max-w-40 sm:block" /></div>
+          <div className="mb-8 flex items-center gap-4"><span className="font-heading text-xl font-bold text-signal-text">02</span><h2 id="system-title" className="text-2xl sm:text-3xl">System foundations</h2><Separator className="hidden max-w-40 sm:block" /></div>
           <div id="principles" className="grid border-l border-t md:grid-cols-3">
             {principles.map((principle) => {
               const Icon = principle.icon;
               return (
                 <Card key={principle.index} className="border-0 border-b border-r bg-transparent py-0 ring-0">
                   <CardHeader className="border-b p-5">
-                    <div className="mb-8 flex items-center justify-between"><span className="font-heading text-lg font-bold text-primary">{principle.index}</span><Icon aria-hidden="true" className="size-6" strokeWidth={1.75} /></div>
+                    <div className="mb-8 flex items-center justify-between"><span className="font-heading text-lg font-bold text-signal-text">{principle.index}</span><Icon aria-hidden="true" className="size-6" strokeWidth={1.75} /></div>
                     <CardTitle className="text-xl uppercase">{principle.title}</CardTitle>
                   </CardHeader>
                   <CardContent className="p-5"><CardDescription className="text-sm leading-6">{principle.description}</CardDescription></CardContent>

@@ -1,0 +1,71 @@
+/* CARBON ● ○ CONCRETE : a two-position instrument selector.
+   The active state is carried by shape (filled / hollow marker), weight and an
+   underline, not by colour alone. It is driven by <html data-theme> in CSS so
+   it is correct on first paint, before hydration. */
+.switcher {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--line-strong);
+  font:
+    600 0.65rem/1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.option {
+  position: relative;
+  display: inline-flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink-muted);
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  white-space: nowrap;
+}
+.option + .option {
+  border-left: 1px solid var(--line-strong);
+}
+.marker {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+.option::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  background: var(--signal);
+  transform: scaleX(0);
+}
+.option:hover {
+  color: var(--ink);
+}
+.option:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: -5px;
+}
+
+:global(:root:not([data-theme="concrete"])) .option[data-theme-option="carbon"],
+:global(:root[data-theme="concrete"]) .option[data-theme-option="concrete"] {
+  color: var(--ink);
+}
+:global(:root:not([data-theme="concrete"])) .option[data-theme-option="carbon"]::after,
+:global(:root[data-theme="concrete"]) .option[data-theme-option="concrete"]::after {
+  transform: scaleX(1);
+}
+:global(:root:not([data-theme="concrete"])) .option[data-theme-option="carbon"] .marker,
+:global(:root[data-theme="concrete"]) .option[data-theme-option="concrete"] .marker {
+  border-color: var(--signal);
+  background: var(--signal);
+}
