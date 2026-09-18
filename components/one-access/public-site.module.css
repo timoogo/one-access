@@ -504,6 +504,45 @@
   align-items: center;
   text-transform: uppercase;
 }
+.exampleSection {
+  position: relative;
+  --example-progress-left: 20px;
+  --example-progress-top: 65px;
+  --example-progress-bottom: 30px;
+}
+.exampleProgressRail {
+  position: absolute;
+  top: var(--example-progress-top);
+  bottom: var(--example-progress-bottom);
+  left: var(--example-progress-left);
+  width: 1px;
+  background: color-mix(in srgb, var(--foreground) 12%, transparent);
+  pointer-events: none;
+}
+.exampleProgressFill {
+  position: absolute;
+  inset: 0;
+  background: #ff4b0b;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+@media (max-width: 1100px) {
+  .exampleSection {
+    --example-progress-left: 14px;
+  }
+}
+@media (max-width: 700px) {
+  .exampleSection {
+    --example-progress-left: 10px;
+    --example-progress-top: 70px;
+    --example-progress-bottom: 28px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .exampleProgressFill {
+    transform: scaleY(1);
+  }
+}
 .sectionLabel > span {
   font:
     600 1.1rem var(--font-heading),

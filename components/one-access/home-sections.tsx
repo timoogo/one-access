@@ -235,10 +235,13 @@ export function ExampleSection() {
   return (
     <section
       id="exemple"
-      className={styles.section}
+      className={`${styles.section} ${styles.exampleSection}`}
       aria-labelledby="example-title"
       data-motion-section
     >
+      <div className={styles.exampleProgressRail} aria-hidden="true">
+        <span className={styles.exampleProgressFill} data-motion-example-progress />
+      </div>
       <TechnicalSectionLabel
         number="04"
         note="Scénario illustratif · aucun lieu réel"

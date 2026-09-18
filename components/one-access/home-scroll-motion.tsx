@@ -345,5 +345,28 @@ export function HomeScrollMotion({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  useEffect(() => {
+    const root = rootRef.current;
+    const section = root?.querySelector<HTMLElement>("#exemple");
+    const fill = section?.querySelector<HTMLElement>("[data-motion-example-progress]");
+    if (!root || !section || !fill) return;
+
+    const media = gsap.matchMedia();
+    media.add("(prefers-reduced-motion: no-preference)", () => {
+      gsap.fromTo(fill, { scaleY: 0 }, {
+        scaleY: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top center",
+          end: "bottom center",
+          scrub: true,
+        },
+      });
+    }, root);
+
+    return () => media.revert();
+  }, []);
+
   return <div ref={rootRef} className={styles.homeMotion}>{children}</div>;
 }
