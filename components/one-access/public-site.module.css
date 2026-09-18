@@ -1060,15 +1060,34 @@
   font-size: 0.9rem;
   max-width: 28ch;
 }
+.applicationsSection .sectionLabel {
+  flex-wrap: wrap;
+  row-gap: 8px;
+  padding-block: 20px 28px;
+}
+.applicationsSection .sectionLabel i {
+  flex: 1;
+}
+.applicationsSection .sectionLabel small {
+  display: block;
+  flex-basis: 100%;
+}
 .applicationsGrid {
   display: grid;
-  grid-template-columns: 0.9fr 1fr 1.3fr;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.85fr) minmax(0, 2fr);
   gap: 25px;
 }
+.applicationsIntro {
+  min-width: 0;
+}
 .application {
+  min-width: 0;
   border-left: 1px solid var(--border);
   padding-left: 22px;
   position: relative;
+}
+.applicationStart {
+  border-left-color: var(--primary);
 }
 .applicationNumber {
   display: block;
@@ -1089,11 +1108,18 @@
 .application .applicationAim {
   color: var(--foreground);
 }
+.applicationProcess {
+  margin-top: 30px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  color: var(--muted-foreground);
+}
+.applicationProcess > p {
+  font-size: 0.6rem;
+}
 .process {
   display: flex;
-  padding: 20px 0;
-  margin-top: 28px;
-  border-block: 1px solid var(--border);
+  padding-top: 12px;
   gap: 20px;
   justify-content: space-between;
   font:
@@ -1103,21 +1129,72 @@
 }
 .process li + li::before {
   content: "→";
-  color: var(--primary);
+  color: var(--muted-foreground);
   margin-right: 15px;
 }
 .places {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 18px;
-  gap: 10px 22px;
-  font-size: 0.8rem;
-  color: var(--muted-foreground);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 24px;
+  border-bottom: 1px solid var(--border);
+  font: 0.75rem/1.5 var(--font-mono), monospace;
+  color: var(--foreground);
 }
-.places li::before {
-  content: "+";
+.places li {
+  border-top: 1px solid var(--border);
+}
+.places li:nth-child(even) {
+  border-left: 1px solid var(--border);
+}
+.placeButton {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 10px 14px 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+.places li:nth-child(even) .placeButton {
+  padding-left: 16px;
+}
+.placeLabel {
+  text-decoration: underline transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  transition: text-decoration-color 120ms;
+}
+.placeIndicator {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--primary);
   color: var(--primary);
-  margin-right: 9px;
+  font-size: 0.85rem;
+  line-height: 1;
+  transition:
+    background-color 120ms,
+    color 120ms;
+}
+.placeButton:hover .placeLabel,
+.placeButton:focus-visible .placeLabel {
+  text-decoration-color: var(--primary);
+}
+.placeButton:hover .placeIndicator,
+.placeButton:focus-visible .placeIndicator {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.places .placeButton:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: -2px;
 }
 .support {
   display: grid;
@@ -1305,10 +1382,16 @@
     min-width: 30%;
   }
   .applicationsGrid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
   }
-  .applicationsGrid > h2 {
+  .applicationsIntro {
     grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 25px;
+  }
+  .applicationsGrid .applicationsIntro > p {
+    margin-top: 0;
   }
   .process {
     flex-wrap: wrap;
@@ -1611,6 +1694,12 @@
   .applicationsGrid {
     grid-template-columns: 1fr;
   }
+  .applicationsIntro {
+    display: block;
+  }
+  .applicationsGrid .applicationsIntro > p {
+    margin-top: 16px;
+  }
   .application {
     padding-left: 18px;
   }
@@ -1627,7 +1716,7 @@
   .process li::before,
   .process li + li::before {
     content: "↓";
-    color: var(--primary);
+    color: var(--muted-foreground);
     margin: 0;
   }
   .process li:first-child::before {

@@ -21,6 +21,7 @@ import {
   SupportLink,
   TechnicalSectionLabel,
 } from "./primitives";
+import { PlacePriorityList } from "./place-priority-list";
 import { RouteComparison } from "./route-comparison";
 import styles from "./public-site.module.css";
 
@@ -275,65 +276,72 @@ export function ApplicationsSection() {
   return (
     <section
       id="applications"
-      className={styles.section}
+      className={`${styles.section} ${styles.applicationsSection}`}
       aria-labelledby="applications-title"
       data-motion-section
     >
       <TechnicalSectionLabel
         number="05"
-        note="Concevoir en amont · améliorer l’existant"
+        note="D’abord les constructions neuves, puis les lieux essentiels du quotidien"
       >
-        Où appliquer ONE:ACCESS
+        Où l’appliquer en priorité
       </TechnicalSectionLabel>
       <div className={styles.applicationsGrid}>
-        <h2 id="applications-title">
-          Des lieux
-          <br />
-          pour tous,
-          <br />
-          <span>aujourd’hui.</span>
-        </h2>
-        <article className={styles.application} data-motion-strategy>
+        <div className={styles.applicationsIntro}>
+          <h2 id="applications-title">
+            Des lieux
+            <br />
+            pour tous,
+            <br />
+            <span>aujourd’hui.</span>
+          </h2>
+          <p>
+            Notre proposition : commencer là où les écarts peuvent être évités
+            avant de construire, puis là où ils limitent le plus l’autonomie au
+            quotidien.
+          </p>
+        </div>
+        <article className={`${styles.application} ${styles.applicationStart}`} data-motion-strategy>
           <span className={styles.applicationNumber}>01</span>
           <h3>Constructions neuves</h3>
-          <p>
-            Comparer les parcours dès la conception pour prévenir les grands
-            écarts avant de construire.
-          </p>
           <p className={styles.applicationAim}>
-            Ambition : un indicateur public, clair et lisible de l’accessibilité
-            réelle.
+            Intégrer ONE:ACCESS dès la conception.
+          </p>
+          <p>
+            Comparer les parcours sur plan pour repérer les écarts
+            d’accessibilité évitables avant qu’ils ne s’inscrivent dans le bâti.
           </p>
         </article>
         <article className={styles.application} data-motion-strategy>
           <span className={styles.applicationNumber}>02</span>
-          <h3>Lieux existants</h3>
-          <p>
-            Diagnostiquer l’expérience actuelle et trouver des adaptations
-            réalistes. Un mauvais score ne signifie pas tout reconstruire.
-          </p>
+          <h3>Lieux à accessibilité prioritaire</h3>
           <p className={styles.applicationAim}>
-            Architecture, organisation, technologie, exploitation ou information
-            : agir sur la cause.
+            Étendre progressivement la mesure aux lieux essentiels du quotidien.
           </p>
+          <p>
+            Dans l’existant, privilégier les lieux où les écarts d’accès pèsent
+            directement sur l’autonomie.
+          </p>
+          <PlacePriorityList
+            categories={placeCategories}
+            sectionNumber="05.02"
+          />
         </article>
       </div>
-      <ol className={styles.process} data-motion-process-line>
-        {[
-          "Mesurer",
-          "Identifier la cause",
-          "Trouver une adaptation",
-          "Réduire l’écart",
-          "Améliorer l’autonomie",
-        ].map((step) => (
-          <li key={step}>{step}</li>
-        ))}
-      </ol>
-      <ul className={styles.places} aria-label="Exemples de lieux concernés">
-        {placeCategories.map((place) => (
-          <li key={place}>{place}</li>
-        ))}
-      </ul>
+      <div className={styles.applicationProcess}>
+        <p className="oa-label">Une fois ONE:ACCESS appliqué à un lieu</p>
+        <ol className={styles.process} data-motion-process-line>
+          {[
+            "Mesurer",
+            "Identifier la cause",
+            "Trouver une adaptation",
+            "Réduire l’écart",
+            "Améliorer l’autonomie",
+          ].map((step) => (
+            <li key={step}>{step}</li>
+          ))}
+        </ol>
+      </div>
     </section>
   );
 }
