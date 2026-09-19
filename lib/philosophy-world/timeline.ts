@@ -11,6 +11,7 @@ export interface CanvasController {
   trigger: ScrollTrigger;
   labels: NarrativeLabel[];
   navigateToLabel: (id: string) => void;
+  finish: () => void;
   destroy: () => void;
 }
 const required = <T extends Element>(root: Element, selector: string): T => {
@@ -398,6 +399,14 @@ export function createWorldTimeline(stage: HTMLElement, viewport: Viewport): Can
   window.addEventListener("touchstart", cancelNavigation, { passive: true });
   stage.addEventListener("click", click);
   return { timeline: tl, trigger, labels, navigateToLabel,
+    finish: () => {
+      cancelNavigation();
+      // Seek without callbacks: render only the terminal composition, never replay.
+      tl.totalProgress(1, true);
+      paint();
+      window.scrollTo({ top: Math.ceil(trigger.end) + 1, behavior: "instant" });
+      ScrollTrigger.update();
+    },
     destroy: () => {
       cancelNavigation();
       window.removeEventListener("keydown", keydown);

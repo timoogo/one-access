@@ -5,6 +5,14 @@ import { createWorldTimeline, type CanvasController } from "@/lib/philosophy-wor
 export function usePhilosophyScroll() {
   const rootRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const controllerRef = useRef<CanvasController | undefined>(undefined);
+  const skipAnimation = () => {
+    const destination = document.getElementById("philosophy-faq-title");
+    if (!destination) return;
+    controllerRef.current?.finish();
+    destination.closest("section")?.scrollIntoView({ behavior: "instant", block: "start" });
+    destination.focus({ preventScroll: true });
+  };
   useEffect(() => {
     const root = rootRef.current;
     const stage = stageRef.current;
@@ -21,12 +29,14 @@ export function usePhilosophyScroll() {
       if (controller && !media.matches) root.style.minHeight = `${root.getBoundingClientRect().height}px`;
       controller?.destroy();
       controller = undefined;
+      controllerRef.current = undefined;
       root.dataset.mode = media.matches ? "static" : "animated";
       if (media.matches) { root.style.minHeight = ""; return; }
       root.style.setProperty("--philosophy-top", `${Math.max(0, root.getBoundingClientRect().top + window.scrollY)}px`);
       oldWidth = stage.clientWidth;
       oldHeight = stage.clientHeight;
       controller = createWorldTimeline(stage, { width: oldWidth, height: oldHeight });
+      controllerRef.current = controller;
       controller.trigger.refresh();
       root.style.minHeight = "";
     };
@@ -44,7 +54,8 @@ export function usePhilosophyScroll() {
       media.removeEventListener("change", rebuild);
       window.removeEventListener("resize", resize);
       controller?.destroy();
+      controllerRef.current = undefined;
     };
   }, []);
-  return { rootRef, stageRef };
+  return { rootRef, stageRef, skipAnimation };
 }

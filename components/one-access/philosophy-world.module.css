@@ -22,15 +22,16 @@
 .questionText { display: flex; flex-direction: column; font-family: var(--font-heading), sans-serif; font-size: clamp(2rem, 6vw, 4.4rem); line-height: 1; font-weight: 700; letter-spacing: -.02em; }
 .questionText span:last-child { color: var(--signal); }
 .overviewTooltip { position: absolute; top: 22px; left: 24px; font-family: var(--font-mono), monospace; font-size: .75rem; color: var(--ink-muted); opacity: 0; pointer-events: none; }
-.skip { position: absolute; left: 20px; bottom: 20px; transform: translateY(100px); padding: 12px; background: var(--surface); color: var(--ink); }
-.stage .skip:focus-visible { transform: none; outline: 3px solid var(--signal); outline-offset: 3px; }
+.skip { position: absolute; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); max-width: calc(100% - 32px); min-height: 44px; padding: 10px 12px; border: 0; border-bottom: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); font: 500 .8125rem/1.5 var(--font-mono), monospace; text-transform: uppercase; }
+.skip:hover { color: var(--signal-text); }
+.skip span { margin-left: 8px; }
+.stage .skip:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 .narrative { max-width: 48rem; margin: auto; padding: 40px 24px 80px; }
 .narrative h1, .narrative h2 { font-family: var(--font-heading), sans-serif; font-size: clamp(1.5rem, 3vw, 2.4rem); margin: 1.5em 0 .5em; }
 .narrative p { margin: .6em 0; }
 .sceneTranscript { margin-top: 3rem; padding-left: 1.3rem; }
 .sceneTranscript li { margin: .8rem 0; }
 .philosophy[data-mode="animated"] .narrative { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.after { height: 1px; }
 @media (max-width: 700px) {
   .question { align-items: flex-start; text-align: left; padding: 6vh 6vw; }
 }

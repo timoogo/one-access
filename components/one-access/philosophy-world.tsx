@@ -6,7 +6,7 @@ import { usePhilosophyScroll } from "./use-philosophy-scroll";
 import styles from "./philosophy-world.module.css";
 
 export function PhilosophyWorld() {
-  const { rootRef, stageRef } = usePhilosophyScroll();
+  const { rootRef, stageRef, skipAnimation } = usePhilosophyScroll();
   return (
     <div ref={rootRef} className={styles.philosophy} data-mode="static">
       <div ref={stageRef} className={styles.stage} data-philosophy-stage aria-label="Parcours animé ONE:ACCESS">
@@ -55,7 +55,9 @@ export function PhilosophyWorld() {
           <p className={styles.mast}>{introQuestion.cue}</p>
         </div>
         <p data-overview-tooltip className={styles.overviewTooltip} aria-hidden="true">Vue d’ensemble</p>
-        <a className={styles.skip} href="#philosophy-after">Quitter le parcours animé</a>
+        <button type="button" className={styles.skip} onClick={skipAnimation}>
+          Passer l’animation <span aria-hidden="true">↘</span>
+        </button>
       </div>
       <article className={styles.narrative}>
         {fullNarrative.map((section, i) => <section key={section.heading}>
@@ -69,7 +71,6 @@ export function PhilosophyWorld() {
           })}
         </ol>
       </article>
-      <div id="philosophy-after" className={styles.after} tabIndex={-1} />
     </div>
   );
 }

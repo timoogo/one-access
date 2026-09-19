@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PublicFooter, PublicHeader } from "@/components/one-access/primitives";
+import { PhilosophyFaq } from "@/components/one-access/philosophy-faq";
 import { PhilosophyWorld } from "@/components/one-access/philosophy-world";
 import styles from "@/components/one-access/public-site.module.css";
 
@@ -15,6 +16,7 @@ export default function PhilosophyPage() {
       <PublicHeader />
       <main id="contenu" tabIndex={-1}>
         <PhilosophyWorld />
+        <PhilosophyFaq />
       </main>
       <PublicFooter />
     </div>
