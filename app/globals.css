@@ -122,19 +122,22 @@
 
 :root[data-theme="concrete"] {
   color-scheme: light;
-  --surface: #f3f3f0;
-  --surface-raised: #fbfbf9;
-  --surface-subtle: #e4e5e1;
+
+  --surface: #f1ecde;
+  --surface-raised: #f8f4e9;
+  --surface-subtle: #e5dfd0;
+
   --ink: #0f110f;
   --ink-muted: #464c46;
   --ink-subtle: #666c65;
-  --line: #b0b3ac;
-  --line-strong: #7c817a;
+
+  --line: #b0aa9e;
+  --line-strong: #79746b;
+
   --signal-text: #c03700;
   --overlay: rgb(15 17 15 / 0.5);
   --destructive: #b42318;
 }
-
 /* shadcn/ui vocabulary, expressed through the semantic tokens */
 :root {
   --background: var(--surface);

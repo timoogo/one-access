@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:scenario": "node scripts/test-homepage-scenario.mjs"
+    "test:scenario": "node scripts/test-homepage-scenario.mjs",
+    "test:philosophy": "node scripts/test-philosophy.mjs",
+    "test:philosophy:browser": "node scripts/test-philosophy-browser.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

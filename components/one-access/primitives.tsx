@@ -121,6 +121,7 @@ export function PublicHeader() {
           <Link href="/#concept">Concept</Link>
           <Link href="/#methodologie">Méthodologie</Link>
           <Link href="/#applications">Cas d’usage</Link>
+          <Link href="/philosophie">Philosophie</Link>
         </nav>
         <div className={styles.headerTheme}>
           <ThemeSwitcher />

@@ -1,0 +1,39 @@
+.philosophy { position: relative; }
+.stage { display: none; position: relative; width: 100%; height: calc(100svh - var(--philosophy-top, 80px)); overflow: clip; background: var(--surface); }
+.philosophy[data-mode="animated"] .stage { display: block; }
+.camera { position: absolute; top: 0; left: 0; transform-origin: 0 0; will-change: transform; }
+.worldSvg { display: block; overflow: visible; }
+.route, .replayRoute { fill: none; stroke: var(--signal); stroke-width: 4; stroke-linecap: round; opacity: 0; }
+.replayRoute { stroke-width: 7; }
+.connector { fill: none; stroke: var(--signal); stroke-width: 1.5; stroke-dasharray: 2 6; opacity: 0; }
+.marker, .cursor { fill: var(--signal); stroke: var(--signal); stroke-width: 2; opacity: 0; }
+.diamond { fill: none; stroke: var(--signal); stroke-width: 2; opacity: 0; }
+.annotation, .recap { position: absolute; opacity: 0; pointer-events: none; color: var(--ink); }
+.kicker { font-family: var(--font-mono), monospace; font-size: 14px; line-height: 1.3; color: var(--signal-text); margin: 0 0 10px; letter-spacing: .08em; }
+.body { font-family: var(--font-heading), sans-serif; font-size: 24px; line-height: 1.2; font-weight: 600; letter-spacing: -.02em; margin: 0; }
+.recap { font-family: var(--font-heading), sans-serif; font-size: 32px; line-height: 1.15; font-weight: 600; }
+.recap p { margin: 0; }
+.nodeNavigation { position: absolute; inset: 0; pointer-events: none; }
+.nodeButton { position: absolute; left: 0; top: 0; width: 44px; height: 44px; border: 0; padding: 0; background: transparent; border-radius: 0; visibility: hidden; pointer-events: auto; cursor: pointer; }
+.stage .nodeButton:focus-visible { outline: 3px solid var(--signal); outline-offset: 4px; }
+.nodeButton:hover { outline: 1px solid var(--signal); outline-offset: 2px; }
+.question { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: flex-end; gap: 28px; padding: 8vh 10vw; pointer-events: none; text-align: right; }
+.mast { font-family: var(--font-mono), monospace; font-size: .75rem; letter-spacing: .15em; color: var(--ink-muted); }
+.questionText { display: flex; flex-direction: column; font-family: var(--font-heading), sans-serif; font-size: clamp(2rem, 6vw, 4.4rem); line-height: 1; font-weight: 700; letter-spacing: -.02em; }
+.questionText span:last-child { color: var(--signal); }
+.overviewTooltip { position: absolute; top: 22px; left: 24px; font-family: var(--font-mono), monospace; font-size: .75rem; color: var(--ink-muted); opacity: 0; pointer-events: none; }
+.skip { position: absolute; left: 20px; bottom: 20px; transform: translateY(100px); padding: 12px; background: var(--surface); color: var(--ink); }
+.stage .skip:focus-visible { transform: none; outline: 3px solid var(--signal); outline-offset: 3px; }
+.narrative { max-width: 48rem; margin: auto; padding: 40px 24px 80px; }
+.narrative h1, .narrative h2 { font-family: var(--font-heading), sans-serif; font-size: clamp(1.5rem, 3vw, 2.4rem); margin: 1.5em 0 .5em; }
+.narrative p { margin: .6em 0; }
+.sceneTranscript { margin-top: 3rem; padding-left: 1.3rem; }
+.sceneTranscript li { margin: .8rem 0; }
+.philosophy[data-mode="animated"] .narrative { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.after { height: 1px; }
+@media (max-width: 700px) {
+  .question { align-items: flex-start; text-align: left; padding: 6vh 6vw; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .philosophy[data-mode="animated"] .stage { display: none; }
+}

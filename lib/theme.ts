@@ -2,7 +2,7 @@ export const THEMES = ["carbon", "concrete"] as const;
 export type Theme = (typeof THEMES)[number];
 
 /** CARBON is the ONE:ACCESS default and the server-rendered state. */
-export const DEFAULT_THEME: Theme = "carbon";
+export const DEFAULT_THEME: Theme = "concrete";
 export const THEME_STORAGE_KEY = "one-access-theme";
 
 export function isTheme(value: unknown): value is Theme {
